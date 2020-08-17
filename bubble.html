@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Animating Algorithm</title>
+  <link rel="stylesheet" href="./style/style.css" />
+</head>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="inner-header">
+        <div class="back-button">
+        <a href="/index.html">&lArr;</a>
+      </div>
+          <div class="title">
+          <h1>Bubble Sort</h1>
+        </div>
+      </div>
+    </div>
+    <div class="grid">
+      <div class="canvas-container">
+        <canvas class="myCanvas" width="1000px" height="600px"></canvas>
+      </div>
+      <div class="controls-grid">
+        <button class="control" id="prevButton">&#10094;</button>
+        <button class="control" id="nextButton">&#10095;</button>
+        <button class="control" id="finalButton">&#10004;</button>
+        <div class="control" id="size-input">
+          <label for="size">Size </label>
+          <input type="number" name="size" min="10" max="500">
+        </div>
+        <div class="control" id="speed-input">
+            <label for="speed">Speed </label>
+            <input type="range" min="1" max="60" value="30" class="slider" id="range">
+        </div>
+            <button class="control"  id="restart-button">&#10561;</button>
+            <button class="control"  id="start-button">&#9658;</button>
+      </div>
+    </div>
+  </div>
+  <div class="modal" id="myModal">
+    <div class="modal-content">
+      <div class="button-container">
+        <a class="white" href="">
+          <p>
+            <span class="bg"></span>
+            <span class="base"></span>
+            <span class="text">Start Again</span>
+          </p>
+        </a>
+        <a class="transparent" href="index.html">
+          <p>
+            <span class="bg"></span>
+            <span class="base"></span>
+            <span class="text">Check others</span>
+          </p>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="./script/sortingAlgos/bubbleSort.js"></script>
+</body>
+
+</html>

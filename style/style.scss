@@ -1,0 +1,141 @@
+$base: #0f1923;
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+body{
+  // background-image: linear-gradient(to top, #09203f 0%, #537895 100%);
+  height : 100vh;
+  color : black;
+  background-color : lightseagreen;
+}
+
+.header {
+  width: 100%;
+  // color : white;
+
+  height: 96px;
+  padding : 20px;
+    .inner-header{
+        width: 80%;
+        margin : 0 auto;
+        letter-spacing: 1.5em;
+        text-transform: uppercase;
+        .back-button{
+            height: 100%;
+            position : absolute;
+            a{
+                height: 100%;
+                padding-top: 5px;
+                font-size : 25px;
+                color : black;
+                font-family: inherit;
+                text-decoration : none;
+                font-size : 40px;
+            }
+        }
+
+        .title, h1, .back-button{
+            display: inline;
+        }
+
+        .title{
+            padding-top: 5px;
+            position : absolute;
+            left: 50%;
+            transform : translate(-50%)
+        }
+    }
+
+}
+
+.grid {
+
+    width: 80%;
+    height: 80vh;
+    margin: 5vh auto;
+    display: grid;
+    grid-template-columns: 70% 30%;
+    // border : 1px solid white;
+    background-color : green;
+    box-shadow: 10px 10px 150px black;
+    .canvas-container {
+      display : grid;
+      .myCanvas {
+        margin : auto;
+      }
+
+  }
+
+  .controls-grid {
+    display : grid;
+    // grid-template-columns: 50% 50%;
+    // grid-template-rows: auto;
+    color : white;
+    margin: auto;
+    height: 90%;
+    width: 90%;
+    padding : 5px;
+    // grid-template-areas: 
+    // "previous", "next";
+    // "final final";
+    // "size size",
+    // "speed speed",
+    // "restartb startb";
+
+    #prevButton{
+      // grid-area: previous;
+      // background-color : red;
+     }
+
+    #nextButton{
+      // grid-area: next;
+    }
+
+    #finalButton{
+      // grid-area: final;
+    }
+
+    #size-input{
+      // grid-area: size;
+
+      
+
+
+    }
+
+    #speed-input{
+      // grid-area: speed;
+
+      #range{
+
+      }
+
+    }
+
+    #restart-button{
+      // grid-area: restartb;
+    }
+
+    #start-button{
+      // grid-area : startb;
+    }
+
+    .control{
+      font-size : 30px;
+      border : 1px solid white;
+      text-align: center;
+      background-color : black;
+      color : white;
+    }
+
+  }
+}
+
+@import "button";
+@import "modal";
