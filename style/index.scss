@@ -16,10 +16,9 @@ body{
 .title{
     color : white;
     text-align: center;
-    padding : 7.5%;
+    // padding : 5%;
     position: relative;
-    height: 15%;
-    // background-color: #0d324d;
+    height: 20%;
     h1{
         font-size : 7vmin;
         letter-spacing: 4vmin;
@@ -31,27 +30,10 @@ body{
 }
 
 .grid{
-    height: 60%;
+    height: 70%;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(2, 1fr);
-}
-
-.collaborators{
-    height: 10%;
-    // background-color : white;
-    position: relative;
-    p{
-        position : absolute;
-        top : 50%;
-        left : 50%;
-        transform: translate(-50%, -50%);
-    }
-}
-
-
-.outer-div a {
-    text-decoration: none;
 }
 
 .inner-div{
@@ -75,14 +57,38 @@ body{
 }
 
 .inner-div:hover,
-.inner-div:focus {
+.inner-div:focus,
+.collaborators a img:hover,
+.collaborators a img:focus
+ {
 box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
 transform: translateY(-0.5em);
 }
 
+.collaborators{
+    height: 10%;
+    position: relative;
+    .inner-collaborator{
+        margin : 0 auto;
+        height: 70%;
+        width: -webkit-max-content;
+        width: -moz-max-content;
+        position: absolute;
+        top: 50%; left: 50%;
+        transform: translate(-50%,-50%);
+        a{
+            text-decoration : none;
+        }
+
+        img{
+            height: 100%;
+            border-radius: 50%;
+        }
+    }
+}
+
+
 @media only screen and (max-width : 748px) {
-
-
     .title{
         padding : 5%;
         h1{
@@ -97,12 +103,19 @@ transform: translateY(-0.5em);
     }
 
     .grid{
+        height: 70%;
         grid-template-columns: repeat(1, 1fr);
         grid-template-rows: repeat(6, 1fr);
     } 
 
     .outer-div {
         border: 1px solid black;
+        background : rgba($color: black, $alpha: 0.2)
     }
+
+    .collaborators{
+        height: 10%;
+    }
+
 
 }

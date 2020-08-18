@@ -17,9 +17,8 @@ body {
 .title {
   color: white;
   text-align: center;
-  padding: 7.5%;
   position: relative;
-  height: 15%;
+  height: 20%;
 }
 
 .title h1 {
@@ -33,30 +32,13 @@ body {
 }
 
 .grid {
-  height: 60%;
+  height: 70%;
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: (1fr)[3];
       grid-template-columns: repeat(3, 1fr);
   -ms-grid-rows: (1fr)[2];
       grid-template-rows: repeat(2, 1fr);
-}
-
-.collaborators {
-  height: 10%;
-  position: relative;
-}
-
-.collaborators p {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
-}
-
-.outer-div a {
-  text-decoration: none;
 }
 
 .inner-div {
@@ -83,11 +65,39 @@ body {
 }
 
 .inner-div:hover,
-.inner-div:focus {
+.inner-div:focus,
+.collaborators a img:hover,
+.collaborators a img:focus {
   -webkit-box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
           box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
   -webkit-transform: translateY(-0.5em);
           transform: translateY(-0.5em);
+}
+
+.collaborators {
+  height: 10%;
+  position: relative;
+}
+
+.collaborators .inner-collaborator {
+  margin: 0 auto;
+  height: 70%;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+.collaborators .inner-collaborator a {
+  text-decoration: none;
+}
+
+.collaborators .inner-collaborator img {
+  height: 100%;
+  border-radius: 50%;
 }
 
 @media only screen and (max-width: 748px) {
@@ -101,6 +111,7 @@ body {
     font-size: 5vmin;
   }
   .grid {
+    height: 70%;
     -ms-grid-columns: (1fr)[1];
         grid-template-columns: repeat(1, 1fr);
     -ms-grid-rows: (1fr)[6];
@@ -108,6 +119,10 @@ body {
   }
   .outer-div {
     border: 1px solid black;
+    background: rgba(0, 0, 0, 0.2);
+  }
+  .collaborators {
+    height: 10%;
   }
 }
 /*# sourceMappingURL=index.css.map */
