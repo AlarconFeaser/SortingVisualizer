@@ -10,63 +10,63 @@
 body {
   height: 100vh;
   color: black;
-  background-color: lightseagreen;
+  background-image: linear-gradient(315deg, #7f5a83 0%, #0d324d 74%);
+}
+
+body .container {
+  height: 100%;
+  width: 100%;
 }
 
 .header {
+  background-color: rgba(0, 0, 0, 0.5);
   width: 100%;
-  height: 96px;
-  padding: 20px;
+  height: 10%;
+  color: white;
 }
 
 .header .inner-header {
-  width: 80%;
+  height: 100%;
+  width: 100%;
   margin: 0 auto;
-  letter-spacing: 1.5em;
   text-transform: uppercase;
+  position: relative;
 }
 
-.header .inner-header .back-button {
-  height: 100%;
-  position: absolute;
-}
-
-.header .inner-header .back-button a {
-  height: 100%;
-  padding-top: 5px;
-  font-size: 25px;
-  color: black;
-  font-family: inherit;
+.header .inner-header a {
+  width: 20%;
+  color: white;
   text-decoration: none;
-  font-size: 40px;
-}
-
-.header .inner-header .title, .header .inner-header h1, .header .inner-header .back-button {
-  display: inline;
-}
-
-.header .inner-header .title {
-  padding-top: 5px;
+  font-size: 10vmin;
   position: absolute;
-  left: 50%;
-  -webkit-transform: translate(-50%);
-          transform: translate(-50%);
+  top: 50%;
+  left: 0%;
+  -webkit-transform: translate(0, -50%);
+          transform: translate(0, -50%);
+}
+
+.header .inner-header h1 {
+  width: 80%;
+  font-size: 6vmin;
+  letter-spacing: 2vmin;
+  position: absolute;
+  top: 50%;
+  left: 20%;
+  -webkit-transform: translate(0, -50%);
+          transform: translate(0, -50%);
 }
 
 .grid {
-  width: 80%;
-  height: 80vh;
-  margin: 5vh auto;
+  height: 90%;
+  width: auto;
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 70% 30%;
-      grid-template-columns: 70% 30%;
-  background-color: green;
-  -webkit-box-shadow: 10px 10px 150px black;
-          box-shadow: 10px 10px 150px black;
+  grid-template: "my_canvas my_canvas my_canvas my_canvas my_canvas my_canvas my_canvas" 9fr "previous final next size speed restartb startb" 1fr / 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  gap: 5% 0;
 }
 
 .grid .canvas-container {
+  grid-area: my_canvas;
   display: -ms-grid;
   display: grid;
 }
@@ -75,22 +75,41 @@ body {
   margin: auto;
 }
 
-.grid .controls-grid {
-  display: -ms-grid;
-  display: grid;
-  color: white;
-  margin: auto;
-  height: 90%;
-  width: 90%;
-  padding: 5px;
-}
-
-.grid .controls-grid .control {
+.grid .control {
   font-size: 30px;
   border: 1px solid white;
   text-align: center;
   background-color: black;
   color: white;
+  height: auto;
+}
+
+.grid #prevButton {
+  grid-area: previous;
+}
+
+.grid #nextButton {
+  grid-area: next;
+}
+
+.grid #finalButton {
+  grid-area: final;
+}
+
+.grid #size-input {
+  grid-area: size;
+}
+
+.grid #speed-input {
+  grid-area: speed;
+}
+
+.grid #restart-button {
+  grid-area: restartb;
+}
+
+.grid #start-button {
+  grid-area: startb;
 }
 
 .button-container {
