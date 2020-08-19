@@ -126,6 +126,7 @@ modalForm.addEventListener('submit', (event) => {
     const size_input = formData.get('size-input');
     
     Main(size_input, speed_input);
+    disableButton();
     modal.closeModal();
 
 })
