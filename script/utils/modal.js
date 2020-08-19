@@ -8,5 +8,11 @@ const closeModal = function() {
   modal.style.display = "none";
 }
 
+// document.body.addEventListener('click', () => {
+//   if(modal.style.display == "block"){
+//     closeModal();
+//   }
+// })
+
 
 export {openModal, closeModal}

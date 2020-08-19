@@ -58,8 +58,8 @@ body{
     width: auto;
     display: grid;
     grid-template :
-    "my_canvas my_canvas my_canvas my_canvas my_canvas my_canvas my_canvas" 9fr
-    "previous final next size speed restartb startb" 1fr / 1fr 1fr 1fr 1fr 1fr 1fr 1fr ;
+    "my_canvas my_canvas my_canvas my_canvas my_canvas" 9fr
+    "previous final next restartb setting" 1fr / 1fr 1fr 1fr 1fr 1fr ;
 
     gap : 5% 0;
     .canvas-container {
@@ -71,12 +71,13 @@ body{
     }
 
     .control{
-      font-size : 30px;
-      border : 1px solid white;
-      text-align: center;
-      background-color : black;
-      color : white;
-      height : auto;
+      // font-size : 30px;
+      // border : 1px solid white;
+      // text-align: center;
+      // background-color : black;
+      // color : white;
+      // height : auto;
+      font-size : 3vmax;
     }
 
     #prevButton{
@@ -92,25 +93,13 @@ body{
       grid-area: final;
     }
 
-    #size-input{
-      grid-area: size;
-    }
-
-    #speed-input{
-      grid-area: speed;
-
-      #range{
-
-      }
-
-    }
 
     #restart-button{
       grid-area: restartb;
     }
 
-    #start-button{
-      grid-area : startb;
+    #setting-button{
+      grid-area : setting;
     }
 
 
