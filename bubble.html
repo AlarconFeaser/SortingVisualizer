@@ -6,13 +6,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
   <title>Animating Algorithm</title>
   <link rel="stylesheet" href="./style/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet"> 
 </head>
 
 <body>
   <div class="container">
     <div class="header">
       <div class="inner-header">
-        <a href="./">&lArr;</a>
+        <a href="./">&larr;</a>
         <h1>Bubble Sort</h1>
       </div>
     </div>
@@ -21,40 +22,37 @@
       <div class="canvas-container">
         <canvas class="myCanvas" width="400px" height="400px"></canvas>
       </div>
-      <button class="control-canvas" id="prevButton">&#10094;</button>
-      <button class="control-canvas" id="nextButton">&#10095;</button>
-      <button class="control-canvas" id="finalButton">&#10004;</button>
-      <button class="control" id="restart-button">&#10561;</button>
-      <button class="control" id="setting-button">&#9881;</button>
+      <button class="control-canvas" id="prevButton" disabled>&#10094;</button>
+      <button class="control-canvas" id="nextButton" disabled="disabled">&#10095;</button>
+      <button class="control-canvas" id="finalButton" disabled="disabled">&#10004;</button>
+      <button class="control" id="restart-button" disabled="disabled">&#10561;</button>
+      <button class="control" id="setting-button" disabled="disabled">&#9881;</button>
     </div>
 
     <div class="modal" id="myModal">
+
       <div class="modal-content">
-        <div id="close-button">
-          <h1>X</h1>
-          <style>
-            #myModal {
-              color: white;
-            }
-
-            #close-button {
-              cursor: pointer;
-            }
-          </style>
+        <div id="close-button-container">
+          <div id="close-button"><span>x</span></div>
         </div>
-
         <form action="" id="modal-form">
-          <label for="size-input">Size</label>
-          <input type="number" id="size-input" name="size-input" min="10" max="50">
-          <div>
-            <label for="speed-input">Speed</label>
-            <!-- Perhaps use selectors and have slow, fast, recommended -->
-            <input type="number" id="speed-input" name="speed-input" min="1" max="30">
+          <div id="size-input-container">
+            <label for="size-input">Size : </label>
+          <input type="number" id="size-input" name="size-input" min="50" max="200">
           </div>
+          
+          <div id="speed-input-container">
+            <label for="speed-input">Speed : </label>
+            <input type="number" id="speed-input" name="speed-input" min="10" max="30">
+          </div>
+
+          <div id="start-button-container">
+            <input type="submit" value="&#9658;">
+          </div>
+
+        </form>
       </div>
-     <input type="submit" value="start">
     </div>
-    </form>
     <div>
 
 

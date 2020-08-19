@@ -10,6 +10,7 @@ let arr, canvasArr;
 let originY = canvas_height - canvas_height*.2;
 let heightScale = canvas_height * 0.1;
 
+let maxHeight = 50;
 
 let width, spacing, margin;
 
@@ -20,8 +21,8 @@ const activeButtons = () => {
   canvas.context.font = `${font_size}px serif`;
   canvas.context.fillText(`Current Step : ${i} Total Steps : ${finalIteration}`, 10,  canvas_height - 50);
 
-  const buttons = document.querySelectorAll(".control-canvas");
-  buttons.forEach((b) => {
+  document.querySelectorAll(".control-canvas, .control")
+  .forEach((b) => {
     b.disabled = false;
     b.addEventListener("click", () => {
       if (b.id == "prevButton") {
@@ -36,11 +37,10 @@ const activeButtons = () => {
         i = finalIteration;
         drawArray(canvasArr[i]);
       }
-
     let font_size = Number(canvas_height*.05);
     canvas.context.font = `${font_size}px serif`;
     canvas.context.fillText(`Current Step : ${i} Total Steps : ${finalIteration}`, 10,  canvas_height - 50);
-      
+
     });
   });
 };
@@ -49,7 +49,7 @@ const drawArray = (arr,) => {
   canvas.paintCanvas("black");
   arr.forEach((element, index) => {
     let posX = index * width + margin;
-    let rectHeight = heightScale + element * 10;
+    let rectHeight = heightScale + element * 5;
     canvas.context.fillStyle = "white";
     canvas.context.fillRect(
       posX,
@@ -85,12 +85,12 @@ const drawOnCanvas = (arr3d, speed, callback) => {
   }, speed);
 };
 
-const Main  = (size = 10, ms = 60) => {
+const Main  = (size = 30, ms = 60) => {
   //TOP SPEED
   let speed = 1000 / ms;
-  arr = util.generateArray(size, 20);
+  arr = util.generateArray(size, maxHeight);
   canvasArr = [];
-  
+
   bubbleSort(arr);
 
   width = canvas_width / arr.length;
@@ -103,6 +103,8 @@ const Main  = (size = 10, ms = 60) => {
 
 Main();
 
+// modal.openModal();
+
 ///SETTING AND MODAL STUFF
 
 const settingB = document.querySelector('#setting-button');
@@ -114,7 +116,6 @@ closeB.addEventListener('click', () => {
 });
 
 settingB.addEventListener('click', () => {
-  console.log("setting");
   modal.openModal();
 });
 
@@ -131,7 +132,7 @@ modalForm.addEventListener('submit', (event) => {
 
 
 const disableButton = () =>{
-  const buttons = document.querySelectorAll(".control-canvas");
+  const buttons = document.querySelectorAll(".control-canvas, .control");
   buttons.forEach(b => {
     b.disabled = true; 
   })

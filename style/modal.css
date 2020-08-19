@@ -1,7 +1,6 @@
 /* The Modal (background) */
 .modal {
   display: none;
-  /* Hidden by default */
   position: fixed;
   /* Stay in place */
   z-index: 1;
@@ -20,16 +19,15 @@
   /* Black w/ opacity */
 }
 
-.modal .modal-content {
-  /* background-color: #fefefe; */
-  margin: 0 auto;
-  padding: 20px;
-  width: 80%;
-  font-size: 20px;
+.modal #close-button {
+  float: right;
 }
 
-.modal .modal-content .modal-title {
-  background-color: red;
+.modal .modal-content {
+  width: 60%;
+  margin: auto;
+  color: white;
+  background-color: lightseagreen;
 }
 
 /* Modal Content */
