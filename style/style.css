@@ -61,7 +61,7 @@ body .container {
   width: auto;
   display: -ms-grid;
   display: grid;
-  grid-template: "my_canvas my_canvas my_canvas my_canvas my_canvas" 9fr "previous final next restartb setting" 1fr / 1fr 1fr 1fr 1fr 1fr;
+  grid-template: "my_canvas  my_canvas my_canvas my_canvas my_canvas my_canvas" 9fr "play previous next first final  setting" 1fr /  1fr 1fr 1fr 1fr 1fr 1fr;
   gap: 5% 0;
 }
 
@@ -81,8 +81,24 @@ body .container {
   font-size: 3vmax;
 }
 
+.grid #pauseButton {
+  grid-area: pause;
+  /* background-color : red;*/
+}
+
+.grid #playButton {
+  grid-area: play;
+  /* background-color : red;     */
+}
+
+.grid #firstButton {
+  grid-area: first;
+  /*  background-color : red;  */
+}
+
 .grid #prevButton {
   grid-area: previous;
+  /*background-color : red; */
 }
 
 .grid #nextButton {

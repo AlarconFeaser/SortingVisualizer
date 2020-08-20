@@ -1,55 +1,35 @@
 import * as util from "../utils/util.js";
 import * as canvas from "../utils/canvas.js";
 import * as modal from "../utils/modal.js";
-
+import * as algo from './b.js';  // this is where algorithm goes 
 
 let canvas_width = canvas.context.canvas.width;
 let canvas_height = canvas.context.canvas.height;
-let arr, canvasArr;
+let arr = [];
+let canvasArr = [];
 
 let originY = canvas_height - canvas_height*.2;
-let heightScale = canvas_height * 0.1;
-
-let maxHeight = 50;
 
 let width, spacing, margin;
+let currentStep = -1;
 
-const activeButtons = () => {
-  let finalIteration = canvasArr.length - 1;
-  let i = finalIteration;
-  let font_size = Number(canvas_height*.05);
-  canvas.context.font = `${font_size}px serif`;
-  canvas.context.fillText(`Current Step : ${i} Total Steps : ${finalIteration}`, 10,  canvas_height - 50);
+let running = true;
+let finalIteration;
+let currentInterval;
 
-  document.querySelectorAll(".control-canvas, .control")
-  .forEach((b) => {
-    b.disabled = false;
-    b.addEventListener("click", () => {
-      if (b.id == "prevButton") {
-        if (i - 1 > 0) {
-          drawArray(canvasArr[--i]);
-        }
-      } else if (b.id == "nextButton") {
-        if (i <= finalIteration - 1) {
-          drawArray(canvasArr[++i]);
-        }
-      } else if (b.id == "finalButton") {
-        i = finalIteration;
-        drawArray(canvasArr[i]);
-      }
-    let font_size = Number(canvas_height*.05);
-    canvas.context.font = `${font_size}px serif`;
-    canvas.context.fillText(`Current Step : ${i} Total Steps : ${finalIteration}`, 10,  canvas_height - 50);
+const addToArray = ( arr ) => canvasArr.push([...arr]);
 
-    });
-  });
+const displayTextOnCanvas = () => {
+  let font_size = '2.5em';
+  canvas.context.font = `${font_size} serif`;
+  canvas.context.fillText(`Current Step : ${currentStep} Total Steps : ${finalIteration + 1}` , 10,  canvas_height - 50);
 };
 
-const drawArray = (arr,) => {
+const drawArray = (arr) => {
   canvas.paintCanvas("black");
   arr.forEach((element, index) => {
     let posX = index * width + margin;
-    let rectHeight = heightScale + element * 5;
+    let rectHeight = (element + 1) * 3.33;
     canvas.context.fillStyle = "white";
     canvas.context.fillRect(
       posX,
@@ -58,94 +38,112 @@ const drawArray = (arr,) => {
       rectHeight
     );
   });
+  displayTextOnCanvas();
 };
 
-const bubbleSort = arr => {
-  for (let i = 0; i < arr.length - 1; i++) {
-    for (let j = 1; j < arr.length - i; j++) {
-      if (arr[j - 1] > arr[j]) {
-        util.swap(j - 1, j, arr);
-        //adds on to the canvas array
-        canvasArr.push([...arr]);
-      }
+const drawOnCanvas = (generations, fps = 60) => {
+  const speed = 1000 / fps;
+  currentInterval = setInterval(() => {
+    if(currentStep == generations.length) {
+      pause();
+      running = false;
+      currentStep = 0;
     }
-  }
-};
-
-let x = 0;
-const drawOnCanvas = (arr3d, speed, callback) => {
-  let index = 0;
-  const currentInterval = setInterval(() => {
-    if(index == arr3d.length) {
-      clearInterval(currentInterval);
-      callback();
-    }else{
-      drawArray(arr3d[index++]);
+    else{
+      drawArray(generations[currentStep++]);
     }
   }, speed);
 };
 
-const Main  = (size = 30, ms = 60) => {
-  //TOP SPEED
-  let speed = 1000 / ms;
-  arr = util.generateArray(size, maxHeight);
+const Main  = (size = 25, fps = 60) => {
+  arr = util.generateArray(size, size * 10);
   canvasArr = [];
 
-  bubbleSort(arr);
+  algo.bubbleSort(arr, addToArray);
+  finalIteration = canvasArr.length - 1;
 
   width = canvas_width / arr.length;
   spacing = canvas_height / arr.length * 0.1;
-  margin = spacing / 2;
+  margin = spacing >> 1;
 
-  drawOnCanvas(canvasArr, speed, activeButtons);
-  
+  drawOnCanvas(canvasArr, fps);
 };
 
 Main();
 
-// modal.openModal();
+const play = () => {
+  if(!running) {
+    drawOnCanvas(canvasArr);
+    togglePlayPause();
+    running = !running;
+  }
+}
 
-///SETTING AND MODAL STUFF
+const pause = () => {
+  if (running) {
+    console.log('pausing')
+    clearInterval(currentInterval);
+    togglePlayPause();
+    running = !running;
+  }
+}
 
-const settingB = document.querySelector('#setting-button');
-const closeB = document.querySelector('#close-button');
-const modalForm = document.querySelector('#modal-form');
+const togglePlayPause = () => {
+  const btn = document.querySelector('#playPauseIcon');
+  (!running) ? btn.classList.replace('fa-play', 'fa-pause') : btn.classList.replace('fa-pause', 'fa-play')
+}
 
-closeB.addEventListener('click', () => {
+//Event Listeners
+
+document.querySelector('#firstButton').addEventListener('click', () => {
+  currentStep = 0;
+  drawArray(canvasArr[currentStep]);
+})
+
+document.querySelector('#prevButton').addEventListener('click', () => {
+  if (currentStep - 1 > 0)
+    drawArray(canvasArr[--currentStep]);
+  pause();
+})
+
+document.querySelector('#nextButton').addEventListener('click', () => {
+  if (currentStep < finalIteration)
+    drawArray(canvasArr[++currentStep]);
+  pause();
+})
+
+document.querySelector('#finalButton').addEventListener('click', () => {
+  currentStep = finalIteration;
+  drawArray(canvasArr[currentStep]);
+})
+
+document.querySelector('#close-button').addEventListener('click', () => {
     modal.closeModal();
 });
 
-settingB.addEventListener('click', () => {
+document.querySelector('#setting-button').addEventListener('click', () => {
+  pause();
   modal.openModal();
 });
 
-modalForm.addEventListener('submit', (event) => {
+document.querySelector('#playButton').addEventListener('click', () => {
+  (!running) ? play() : pause();
+})
+
+document.querySelector('#modal-form').addEventListener('submit', (event) => {
     event.preventDefault();
     var formData = new FormData(modalForm);
     const speed_input = formData.get('speed-input');
     const size_input = formData.get('size-input');
-    
     Main(size_input, speed_input);
-    disableButton();
     modal.closeModal();
-
 })
 
 
-const disableButton = () =>{
-  const buttons = document.querySelectorAll(".control-canvas, .control");
-  buttons.forEach(b => {
-    b.disabled = true; 
-  })
-}
 
-//RESTART STUFF
-const restartB = document.querySelector('#restart-button');
-restartB.addEventListener('click', () => {
-    disableButton();
-    let speed = 1000 / arr.length/2;
-    drawOnCanvas(canvasArr, speed, activeButtons);
-})
+
+
+
 
 
 

@@ -19,7 +19,6 @@ body{
   
 }
 .header {
-  // background-color : darkblue;
   background-color : rgba(black , .5);
   width: 100%;
   height: 10%;
@@ -58,10 +57,10 @@ body{
     width: auto;
     display: grid;
     grid-template :
-    "my_canvas my_canvas my_canvas my_canvas my_canvas" 9fr
-    "previous final next restartb setting" 1fr / 1fr 1fr 1fr 1fr 1fr ;
-
+    "my_canvas  my_canvas my_canvas my_canvas my_canvas my_canvas" 9fr
+    "play previous next first final  setting" 1fr /  1fr 1fr 1fr 1fr 1fr 1fr ;
     gap : 5% 0;
+
     .canvas-container {
       grid-area: my_canvas;
       display : grid;
@@ -76,29 +75,14 @@ body{
       font-size : 3vmax;
     }
 
-    #prevButton{
-      grid-area: previous;
-      // background-color : red;
-     }
-
-    #nextButton{
-      grid-area: next;
-    }
-
-    #finalButton{
-      grid-area: final;
-    }
-
-
-    #restart-button{
-      grid-area: restartb;
-    }
-
-    #setting-button{
-      grid-area : setting;
-    }
-
-
+    #pauseButton{      grid-area: pause;      /* background-color : red;*/     }
+    #playButton{    grid-area: play;      /* background-color : red;     */}     
+    #firstButton{   grid-area: first;     /*  background-color : red;  */  }
+    #prevButton{    grid-area: previous;      /*background-color : red; */    }
+    #nextButton{    grid-area: next;}
+    #finalButton{   grid-area: final;}
+    #restart-button{    grid-area: restartb;}
+    #setting-button{    grid-area : setting;}
 
   }
 

@@ -7,6 +7,7 @@
   <title>Animating Algorithm</title>
   <link rel="stylesheet" href="./style/style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet"> 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
@@ -22,11 +23,17 @@
       <div class="canvas-container">
         <canvas class="myCanvas" width="400px" height="400px"></canvas>
       </div>
-      <button class="control-canvas" id="prevButton" disabled>&#10094;</button>
-      <button class="control-canvas" id="nextButton" disabled="disabled">&#10095;</button>
-      <button class="control-canvas" id="finalButton" disabled="disabled">&#10004;</button>
-      <button class="control" id="restart-button" disabled="disabled">&#10561;</button>
-      <button class="control" id="setting-button" disabled="disabled">&#9881;</button>
+      <button style="font-size:24px" class="control-canvas" id="playButton"><i class="fa fa-pause" id="playPauseIcon"></i></button>
+      <!-- <button class="control-canvas" id="playButton" disabled>play</button> -->
+    
+      <!-- <button class="control-canvas" id="firstButton" >first</button>   -->
+      <button style="font-size:24px" class="control-canvas" id="firstButton"><i class="fa fa-fast-backward"></i></button>
+      <!-- <button class="control-canvas" id="nextButton" >&#10095;</button>       -->
+      <button style="font-size:24px" class="control-canvas" id="nextButton"><i class="fa fa-forward"></i></button>
+
+      <button style="font-size:24px" class="control-canvas" id="prevButton" ><i class="fa fa-backward"></i></button>
+      <button style="font-size:24px" class="control-canvas" id="finalButton" ><i class="fa fa-fast-forward"></i></button>
+      <button class="control" id="setting-button">&#9881;</button>
     </div>
 
     <div class="modal" id="myModal">
