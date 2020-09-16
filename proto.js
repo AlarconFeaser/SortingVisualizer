@@ -133,27 +133,34 @@ document.querySelector('#firstButton').addEventListener('click', () => {
         b.classList.replace('regular', 'fast')
         console.log("here once");
     })
+    play();
   })
   
   document.querySelector('#prevButton').addEventListener('click', () => {
     if(current - 1 > 0) 
         animateSwap(--current);
+    else{
+      dialogBox("Can't go any further you are at the start already");    
+    }
     pause();
   })
   
   document.querySelector('#nextButton').addEventListener('click', () => {
     if(current < swaps.length) 
         animateSwap(current++);
+     else{
+      dialogBox("Can't go any further, the array is already sorted");   
+     }
     pause();
   })
   
   document.querySelector('#finalButton').addEventListener('click', () => {
      forward = true; 
     bars.forEach( b => {
-        b.classList.replace('regular', 'fast')
+        b.classList.replace('regular', 'fast');
         console.log("here once");
-    }
-    )
+    })
+    play();
   })
   
   document.querySelector('#setting-button').addEventListener('click', () => {
@@ -190,3 +197,34 @@ bar.forEach(b=> {
       div.innerHTML = parseInt(evt.target.style.height, 10);
     });
 })
+
+
+//Dialogs
+let dialogs = [];
+
+let dialogDiv = document.createElement("DIV");
+let dialogSpan = document.createElement("SPAN");
+let closeButton = document.createElement("BUTTON");
+
+closeButton.innerHTML = "OK"
+closeButton.style.position = 'relative';
+closeButton.addEventListener('click', ()=>{
+  dialogs.pop();
+  dialogBox();
+})
+dialogDiv.appendChild(dialogSpan);
+dialogDiv.appendChild(closeButton);
+dialogDiv.classList.add('dialogBox');
+document.body.appendChild(dialogDiv);
+
+
+function dialogBox(text = undefined){
+  if(text != undefined ) dialogs.push(text);
+  if(dialogs.length != 0){
+    dialogDiv.style.display = "block";
+    dialogSpan.innerHTML = dialogs[dialogs.length - 1] + "\n\n" + dialogs.length;
+  }
+  else
+    dialogDiv.style.display = "none";
+}
+
