@@ -71,6 +71,15 @@ body{
       }
     }
 
+    .control-canvas, .control{
+      background-color : white;
+      border: 1px solid black;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  }
+
     .control{
       font-size : 3vmax;
     }

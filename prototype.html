@@ -6,7 +6,7 @@
     <title>Document</title>
     <style>
         :root{
-            --anim-length: 100ms;
+            --anim-length: 100;
         }
         body{
             /* margin: auto auto; */
@@ -14,7 +14,7 @@
             /* justify-content: center; */
         }
         .parent{
-            background-color : lightcoral;
+            background-color : black;
             display: flex;
             flex-direction: row;
             justify-content: center;
@@ -24,16 +24,11 @@
             height: 90vh;
         }
         .bar{
-            background-color : #87ceeb;
-            border-style: groove;
+            background-color : lightgreen;
+            /* border-style: groove; */
             /* position: absolute; */
-            position: relative;
-            margin: 0.125em;
-            -webkit-transiti-on: all var(--anim-length) ease-in-out;
-            -moz-transition: all var(--anim-length) ease-in-out;
-            -ms-transition: all var(--anim-length) ease-in-out;
-            -o-transition: all var(--anim-length) ease-in-out;
-            transition: all var(--anim-length) ease-in-out;
+            /* margin: 0.125em; */
+            transition: all .6s ease-in-out;
         }
 
         .bar:hover,
@@ -49,62 +44,7 @@
 
     </div>
 
-    <script >
-        const generateArray = (size, max_num = size * 100) => {
-            let arr = [];
-            for(let i = 0; i < size; ++i)
-                arr[i] = Math.floor(Math.random() * max_num);
-            return arr
-        }
-
-        const size = 5;
-        let arr = generateArray(size)
-
-        const parent_div = document.querySelector('.parent')
-
-        const createDivsInsideParent = num => { 
-            const width = 80 / size;
-            const parent_height = parent_div.clientHeight;
-            let divs = [];
-            for(let i = 0; i < num ; i++){
-                const div = document.createElement('div');
-                div.classList.add('bar')
-                // div.appendChild(document.createTextNode('hi'))
-                console.log(arr[i])
-                let height = Math.round(arr[i] / size * 0.8);
-                div.style.width = width + '%'
-                // div.style.left = 250 + (i * width) + (i * width >> 2) + 'px'
-                div.style.height = height + '%'
-                div.style.top = 40 - (height >> 1) + '%'
-                divs.push(div);
-                parent_div.appendChild(div); 
-            } 
-        }
-
-        createDivsInsideParent(size);
-        parent_div.addEventListener('click', () => {
-            let r1 = Math.floor(Math.random() * arr.length);
-            let r2 = Math.floor(Math.random() * (arr.length - 1));
-            if (r1 == r2)
-                r2++;
-            if (r2 < r1)
-                [r1, r2] = [r2, r1];
-            let n1 = parent_div.childNodes[r1 + 1];
-            let n2 = parent_div.childNodes[r2 + 1];
-            let x1 = n1.offsetLeft;
-            let x2 = n2.offsetLeft;
-            if (x1 == undefined)
-                x1 = 0;
-            console.log(r1, r2)
-            console.log(x1, x2)
-            // parent_div.childNodes[r1 + 1].style.left = x2;
-            // parent_div.childNodes[r2 + 1].style.left = x1;
-            n2.before(parent_div.childNodes[r1 + 1])
-            n1.before(parent_div.childNodes[r2 + 1])
-            // parent_div.insertAfter(parent_div.childNodes[r1], parent_div.childNodes[r2])
-            // parent_div.childNode[r1].before(parent_div.childNode[r2])
-        });
-    </script>
+    <script src="proto.js"></script>
     
 </body>
 </html>
