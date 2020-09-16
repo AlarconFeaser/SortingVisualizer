@@ -130,7 +130,7 @@ let bars = document.querySelectorAll('.bar');
 document.querySelector('#firstButton').addEventListener('click', () => {
     forward = false;
     bars.forEach( b => {
-        b.classList.replace('regular', 'reversing')
+        b.classList.replace('regular', 'fast')
         console.log("here once");
     })
   })
@@ -148,8 +148,9 @@ document.querySelector('#firstButton').addEventListener('click', () => {
   })
   
   document.querySelector('#finalButton').addEventListener('click', () => {
+     forward = true; 
     bars.forEach( b => {
-        b.classList.replace('regular', 'reversing')
+        b.classList.replace('regular', 'fast')
         console.log("here once");
     }
     )
