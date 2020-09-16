@@ -90,13 +90,9 @@ parent_div.addEventListener("transitionend", (evt) => {
   if (evt.propertyName == 'left' && running ){
       console.log(running);
     console.log("transitionend", firstAnim, evt.target.id);
-    if(!firstAnim && current < swaps.length 
-        // && current - 1 > 0
-        ) {
-    //   animateSwap(forward ? current++ : current--);
-    animateSwap(current++)
+    if(!firstAnim && current < swaps.length  && current > 0) {
+      animateSwap((forward ? current++ : current--));
     }
-    //What's this?
     firstAnim = !firstAnim;
     evt.preventDefault();
   }
