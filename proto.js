@@ -7,13 +7,13 @@ const generateArray = (size, max_num) => {
 };
 
 const PARENT_DIV = document.querySelector(".parent");
-let size = 100;
+let size = 50;
 let arr = generateArray(size, Math.floor(PARENT_DIV.clientHeight * 0.98));
+let originalArray = [...arr];
 let divs = [];
 const PADDING = 5;
-const WIDTH = (PARENT_DIV.clientWidth - PADDING * 2) / size;
-const START = PARENT_DIV.offsetLeft + PADDING / 2;
-const BOTTOM = PARENT_DIV.style.offsetBottom - PADDING
+let WIDTH = (PARENT_DIV.clientWidth - PADDING * 2) / size;
+let START = PARENT_DIV.offsetLeft + PADDING / 2;
 
 const createBar = (height, left) => {
   const bar = document.createElement("div");
@@ -21,11 +21,10 @@ const createBar = (height, left) => {
   bar.style.width = (WIDTH - PADDING) + "px";
   bar.style.left = left + "px";
   bar.style.height = height + 'px';
-  bar.style.bottom = BOTTOM + "px";
   return bar;
 } 
 
-const createDivsInsideParent = (num) => {
+const createDivsInsideParent = (arr, num) => {
   for (let i = 0; i < num; i++) {
     const div = createBar(arr[i], START + i * WIDTH + PADDING)
     divs.push(div);
@@ -33,7 +32,7 @@ const createDivsInsideParent = (num) => {
   }
 };
 
-createDivsInsideParent(size);
+createDivsInsideParent(arr, size);
 
 const swapArray = (x, y, arr) => {
   let temp = arr[y];
@@ -163,77 +162,45 @@ document.querySelector('#finalButton').addEventListener('click', () => {
   }
 })
 
-// document.querySelector('#setting-button').addEventListener('click', () => {
-//   // pause();
-//   // modal.openModal();
-// });
+window.addEventListener('resize', ()=>{
+// pause();
+WIDTH = (PARENT_DIV.clientWidth - PADDING * 2) / size;
+START = PARENT_DIV.offsetLeft + PADDING / 2;
+console.log("resize", WIDTH, START);
+// current = -1;
+// running = false;
+// firstAnim = true;
+// forward = true;
+// pauseable = true;
+// PARENT_DIV.innerHTML = "";
+// createDivsInsideParent(originalArray, size);
+// console.log(divs);
+//Solution 1
+//We could restart everything to the beginning with the new width and start
+//No problem with this, tho Idk how to exactly do it, pause locks everything else
+//Solution 2
+//we could resize as the animation runs which will have major problems
+//1. transition end will detect wathever size the array is times 2 animations.
+//2. won't look as nice.
+//Solution 3 HIBRID SOLUTION
+//we could pause and resize everything, PROBLEMS :
+// once again this will trigger some transitionEnd for left.
+})
 
-// let currentDiv = document.createElement("DIV");
-// let totalDiv = document.createElement("DIV");
-// let divArr = [currentDiv, totalDiv]
-// divArr.forEach( d => {
-//     d.style.left = 0;
-//     d.style.top = 0;
-//     d.style.backgroundColor = "white";
-//     d.style.position = "absolute";
-//     d.style.WIDTH = "100px";
-//     d.style.height = "auto";
-//     d.style.color = "green";
-//     d.style.zIndex = 1;
-//     document.body.appendChild(d);
-// })
+let minSpeed = .00001;
+let speed = .5;
+function calculateDuration(evt) {
+  evt.preventDefault();
+  speed += evt.deltaY * -0.001;
+  speed = Math.min(Math.max(minSpeed, speed), 2);
+  return (speed + "s");
+}
 
-// totalDiv.style.left  = '100px';
-// totalDiv.innerHTML = swaps.length;
-// currentDiv.innerHTML = current;
+let ss = document.styleSheets[1].cssRules[4];
+function changeTranstionDuration(evt){
+  console.log(calculateDuration(evt));
+  ss.style.animationDuration = calculateDuration(evt);
+  ss.style.MozTransitionDuration = calculateDuration(evt);
+}
 
-// console.log(divArr);
-
-// //DW about this 
-// let div = document.createElement("DIV");
-// document.body.appendChild(div);
-// div.style.position = "absolute";
-// div.style.left = 0;
-// div.style.top = 0;
-// div.style.backgroundColor = "white";
-// div.style.width = "auto";
-// div.style.height = "auto";
-// div.style.color = "black";
-// div.style.pointerEvents = "none";
-// div.style.display = "none";
-// div.style.padding = '10px'
-// div.style.borderRadius = '1rem'
-
-// let bar = document.querySelectorAll(".bar");
-// bar.forEach(b => {
-//   b.addEventListener("mouseover", (evt) => {
-//     console.log(evt.target.style.height)
-    // div.style.display = "block";
-    // div.style.left = evt.clientX + 20 + "px";
-    // div.style.top = evt.clientY + "px";
-    // div.innerHTML = parseInt(evt.target.style.height, 10);
-//   });
-// })
-
-//Dialogs
-// let dialogDiv = document.createElement("DIV");
-// let closeButton = document.createElement("BUTTON");
-// let dialogSpan = document.createElement("SPAN");
-// closeButton.innerHTML = "OK"
-// closeButton.style.position = 'relative';
-// closeButton.addEventListener('click', () => {
-//   dialogBox();
-// })
-// dialogDiv.appendChild(dialogSpan);
-// dialogDiv.appendChild(closeButton);
-// dialogDiv.classList.add('dialogBox');
-// document.body.appendChild(dialogDiv);
-
-// function dialogBox(text = undefined) {
-//   if (text === undefined)
-//     dialogDiv.style.display = "none";
-//   else {
-//     dialogDiv.style.display = "block";
-//     dialogSpan.innerHTML = text;
-//   }
-// }
+document.body.onwheel = changeTranstionDuration;
