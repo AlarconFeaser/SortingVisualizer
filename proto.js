@@ -7,24 +7,27 @@ const generateArray = (size, max_num) => {
 };
 
 const PARENT_DIV = document.querySelector(".parent");
-let size = 12;
+let size = 100;
 let arr = generateArray(size, Math.floor(PARENT_DIV.clientHeight * 0.98));
 let divs = [];
 const PADDING = 5;
 const WIDTH = (PARENT_DIV.clientWidth - PADDING * 2) / size;
+const START = PARENT_DIV.offsetLeft + PADDING / 2;
+const BOTTOM = PARENT_DIV.style.offsetBottom - PADDING
+
+const createBar = (height, left) => {
+  const bar = document.createElement("div");
+  bar.classList = "bar regular";
+  bar.style.width = (WIDTH - PADDING) + "px";
+  bar.style.left = left + "px";
+  bar.style.height = height + 'px';
+  bar.style.bottom = BOTTOM + "px";
+  return bar;
+} 
 
 const createDivsInsideParent = (num) => {
-  const start = PARENT_DIV.offsetLeft + PADDING / 2;
-  const bottom = document.body.scrollHeight - PARENT_DIV.scrollHeight; //offsetTop should be the same as margin top and bottom
   for (let i = 0; i < num; i++) {
-    const div = document.createElement("div");
-    div.classList = "bar regular";
-    div.id = 'bar' + (i + 1);
-    let height = arr[i];
-    div.style.width = (WIDTH - PADDING) + "px";
-    div.style.left = start + i * WIDTH + PADDING + "px";
-    div.style.height = height + "px";
-    div.style.bottom = bottom + "px";
+    const div = createBar(arr[i], START + i * WIDTH + PADDING)
     divs.push(div);
     PARENT_DIV.appendChild(div);
   }
@@ -50,7 +53,7 @@ const bubbleSort = (arr) => {
   return swaps;
 };
 
-function swapDivs(d1, d2) {
+const swapDivs = (d1, d2) => {
   let first = divs[d1].style.left;
   let second = divs[d2].style.left;
   divs[d1].style.left = second;
@@ -91,27 +94,26 @@ const swap = () => {
 
 const animateSwap = num => swapDivs(swaps[num][0], swaps[num][1]);
 
+const PLAY_BUTTON = document.querySelector('#playPauseIcon');
+const BARS = document.querySelectorAll('.bar');
+
 const pause = () => {
   console.log('paused', current, swaps.length)
   running = false;
   pauseable = true;
   forward = true;
-  bars.forEach(b => b.classList.replace('fast', 'regular'));
-  play_button.classList.replace('fa-pause', 'fa-play');
+  BARS.forEach(b => b.classList.replace('fast', 'regular'));
+  PLAY_BUTTON.classList.replace('fa-pause', 'fa-play');
 }
-
-const play_button = document.querySelector('#playPauseIcon');
-const bars = document.querySelectorAll('.bar');
 
 // Button click listeners: 
 
 document.querySelector('#firstButton').addEventListener('click', () => {
   if (!running) {
-    // pauseable = false;
     forward = false;
     running = true;
-    bars.forEach(b => b.classList.replace('regular', 'fast'))
-    play_button.classList.replace('fa-play', 'fa-pause')
+    BARS.forEach(b => b.classList.replace('regular', 'fast'))
+    PLAY_BUTTON.classList.replace('fa-play', 'fa-pause')
     swap();
   }
 })
@@ -120,25 +122,23 @@ document.querySelector('#prevButton').addEventListener('click', () => {
   if (!running && pauseable) {
       forward = false;
       pauseable = false;
-      play_button.classList.replace('fa-play', 'fa-pause')
+      PLAY_BUTTON.classList.replace('fa-play', 'fa-pause')
       swap();
-      // console.log('paused', current, swaps.length)
   }
 })
 
 document.querySelector('#playButton').addEventListener('click', () => {
   if (pauseable) {
     if (running) {  // pause
-        bars.forEach(b => b.classList.replace('fast', 'regular'))
-        play_button.classList.replace('fa-pause', 'fa-play')
-        // pause();
+        BARS.forEach(b => b.classList.replace('fast', 'regular'))
+        PLAY_BUTTON.classList.replace('fa-pause', 'fa-play')
         running = false;
     }
     else {  // play
       running = true;
       forward = true;
-      bars.forEach(b => b.classList.replace('fast', 'regular'))
-      play_button.classList.replace('fa-play', 'fa-pause')
+      BARS.forEach(b => b.classList.replace('fast', 'regular'))
+      PLAY_BUTTON.classList.replace('fa-play', 'fa-pause')
       swap();
     }
   }
@@ -148,19 +148,17 @@ document.querySelector('#nextButton').addEventListener('click', () => {
   if (!running && pauseable) {
     pauseable = false;
     forward = true;
-    play_button.classList.replace('fa-play', 'fa-pause')
+    PLAY_BUTTON.classList.replace('fa-play', 'fa-pause')
     swap();
-    // console.log('paused', current, swaps.length)
   }
 })
 
 document.querySelector('#finalButton').addEventListener('click', () => {
   if (!running) {
-    // pauseable = false;  
     forward = true;
     running = true;
-    bars.forEach(b => b.classList.replace('regular', 'fast'))
-    play_button.classList.replace('fa-play', 'fa-pause')
+    BARS.forEach(b => b.classList.replace('regular', 'fast'))
+    PLAY_BUTTON.classList.replace('fa-play', 'fa-pause')
     swap();
   }
 })
@@ -218,24 +216,24 @@ document.querySelector('#finalButton').addEventListener('click', () => {
 // })
 
 //Dialogs
-let dialogDiv = document.createElement("DIV");
-let closeButton = document.createElement("BUTTON");
-let dialogSpan = document.createElement("SPAN");
-closeButton.innerHTML = "OK"
-closeButton.style.position = 'relative';
-closeButton.addEventListener('click', () => {
-  dialogBox();
-})
-dialogDiv.appendChild(dialogSpan);
-dialogDiv.appendChild(closeButton);
-dialogDiv.classList.add('dialogBox');
-document.body.appendChild(dialogDiv);
+// let dialogDiv = document.createElement("DIV");
+// let closeButton = document.createElement("BUTTON");
+// let dialogSpan = document.createElement("SPAN");
+// closeButton.innerHTML = "OK"
+// closeButton.style.position = 'relative';
+// closeButton.addEventListener('click', () => {
+//   dialogBox();
+// })
+// dialogDiv.appendChild(dialogSpan);
+// dialogDiv.appendChild(closeButton);
+// dialogDiv.classList.add('dialogBox');
+// document.body.appendChild(dialogDiv);
 
-function dialogBox(text = undefined) {
-  if (text === undefined)
-    dialogDiv.style.display = "none";
-  else {
-    dialogDiv.style.display = "block";
-    dialogSpan.innerHTML = text;
-  }
-}
+// function dialogBox(text = undefined) {
+//   if (text === undefined)
+//     dialogDiv.style.display = "none";
+//   else {
+//     dialogDiv.style.display = "block";
+//     dialogSpan.innerHTML = text;
+//   }
+// }
