@@ -8,7 +8,7 @@
 
     <style>
         :root{
-            --anim-length: 100;
+            --anim-length: .2s;
         }
         body{
             /* margin: auto auto; */
@@ -32,17 +32,17 @@
         .bar{
             background-color : lightgreen;
             /* border-style: groove; */
-            /* position: absolute; */
+            position: absolute;
             /* margin: 0.125em; */
             border-radius: 1rem;
         }
 
         .regular{
-            transition: all 1s ease-in-out;
+            transition: all var(--anim-length) ease-in-out;
         }
 
         .fast{
-            transition: all .2s ease-in-out;
+            transition: all 0.0001s ease-in-out;
         }
 
         .controls{
@@ -66,33 +66,52 @@
             color :black;
             display : none;
             border-radius : 1rem;
-            left : 5%;
-            bottom : 5%;
+            left : 50%;
+            /* bottom : 50%; */
+            top : 50%;
+            /* transform-origin: left top; 
+            transform-origin: center center;     */
+            /* -webkit-transform: translateX(150%); */
+
+            transform: translateX(-50%) translateY(-50%);
+            transition-timing-function: ease-in;
             padding : 20px;
-            transition: all .6s ease-in-out;
-            animation: anim 1s 1;
+            /* transition: all .6s ease-in-out; */
+            animation: anim 1.5s 1;
         }
 
-        @-webkit-keyframes anim {
+        /* @-webkit-keyframes anim {
   0% {
-    -webkit-transform: translateY(100%);
-            transform: translateY(100%);
+    -webkit-transform: translateX(100%);
+            transform: translateX(100%);
   }
   50% {
-    -webkit-transform: translateY(0);
-            transform: translateY(0);
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
   }
-}
+} */
 
 @keyframes anim {
   0% {
-    -webkit-transform: translateY(100%);
-            transform: translateY(100%);
+    -webkit-transform: translateX(1000%);
+            transform: translateX(1000%);
   }
-  50% {
-    -webkit-transform: translateY(0);
-            transform: translateY(0);
+  25% {
+    -webkit-transform: translateX(-50%) translateY(-100%);
+            transform: translateX(-50%) translateY(-100%);
   }
+  60% {
+    -webkit-transform: translateX(-100%) translateY(-50%);
+            transform: translateX(-100%) translateY(-50%);
+  }
+  /* 50% {
+    -webkit-transform: translateX(-100%) translateY(-50%);
+            transform: translateX(-100%) translateY(-50%);
+  }
+  75% {
+    -webkit-transform: translateX(-50%) translateY(-25%);
+            transform: translateX(-50%) translateY(-25%);
+  } */
 }
 
 
@@ -111,12 +130,12 @@
     </div>
 
     <div class="controls">
-        <div style="font-size:24px" class="control-canvas" id="playButton"><i class="fa fa-play" id="playPauseIcon"></i></div>
         <!-- <button class="control-canvas" id="playButton" disabled>play</button> -->
         <!-- <button class="control-canvas" id="firstButton" >first</button>   -->
         <div style="font-size:24px" class="control-canvas" id="firstButton"><i class="fa fa-fast-backward"></i></div>
         <!-- <button class="control-canvas" id="nextButton" >&#10095;</button>       -->
         <div style="font-size:24px" class="control-canvas" id="prevButton" ><i class="fa fa-backward"></i></div>
+        <div style="font-size:24px" class="control-canvas" id="playButton"><i class="fa fa-play" id="playPauseIcon"></i></div>
         <div style="font-size:24px" class="control-canvas" id="nextButton"><i class="fa fa-forward"></i></div>
         <div style="font-size:24px" class="control-canvas" id="finalButton" ><i class="fa fa-fast-forward"></i></div>
         <div class="control" id="setting-button">&#9881;</div>
