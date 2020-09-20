@@ -1,9 +1,24 @@
+
+const PADDING = 5;
+
+const swapArray = (x, y, arr) => [arr[x], arr[y]] = [arr[y], arr[x]];
+
+const shuffleArray = (arr) => {
+  const len = arr.length;
+  for (let i = 0; i < len; ++i) {
+    const pos = Math.ceil(Math.random() * (len - i - 1)) + i
+    swapArray(i, pos, arr);
+  }
+  return arr;
+}
+
 const generateArray = (size, max_num) => {
   let arr = [];
-  let min_size = max_num / 20;
+  const min_size = max_num / 25;
+  const chunk = (max_num - PADDING * 2) / size;
   for (let i = 0; i < size; ++i) 
-    arr[i] = Math.ceil(Math.random() * (max_num - min_size) + min_size);
-  return arr;
+    arr[i] = i * chunk + min_size;
+  return shuffleArray(arr);
 };
 
 const PARENT_DIV = document.querySelector(".parent");
@@ -11,16 +26,19 @@ let size = 50;
 let arr = generateArray(size, Math.floor(PARENT_DIV.clientHeight * 0.98));
 let originalArray = [...arr];
 let divs = [];
-const PADDING = 5;
 let WIDTH = (PARENT_DIV.clientWidth - PADDING * 2) / size;
 let START = PARENT_DIV.offsetLeft + PADDING / 2;
+
+const styleBar = (bar, height, left) => {
+  bar.style.width = (WIDTH - PADDING) + "px";
+  bar.style.left = left + "px";
+  bar.style.height = height + 'px';
+}
 
 const createBar = (height, left) => {
   const bar = document.createElement("div");
   bar.classList = "bar regular";
-  bar.style.width = (WIDTH - PADDING) + "px";
-  bar.style.left = left + "px";
-  bar.style.height = height + 'px';
+  styleBar(bar, height, left);
   return bar;
 } 
 
@@ -33,12 +51,6 @@ const createDivsInsideParent = (arr, num) => {
 };
 
 createDivsInsideParent(arr, size);
-
-const swapArray = (x, y, arr) => {
-  let temp = arr[y];
-  arr[y] = arr[x];
-  arr[x] = temp;
-};
 
 const bubbleSort = (arr) => {
   let swaps = []
@@ -162,45 +174,36 @@ document.querySelector('#finalButton').addEventListener('click', () => {
   }
 })
 
-window.addEventListener('resize', ()=>{
-// pause();
-WIDTH = (PARENT_DIV.clientWidth - PADDING * 2) / size;
-START = PARENT_DIV.offsetLeft + PADDING / 2;
-console.log("resize", WIDTH, START);
-// current = -1;
-// running = false;
-// firstAnim = true;
-// forward = true;
-// pauseable = true;
-// PARENT_DIV.innerHTML = "";
-// createDivsInsideParent(originalArray, size);
-// console.log(divs);
-//Solution 1
-//We could restart everything to the beginning with the new width and start
-//No problem with this, tho Idk how to exactly do it, pause locks everything else
-//Solution 2
-//we could resize as the animation runs which will have major problems
-//1. transition end will detect wathever size the array is times 2 animations.
-//2. won't look as nice.
-//Solution 3 HIBRID SOLUTION
-//we could pause and resize everything, PROBLEMS :
-// once again this will trigger some transitionEnd for left.
+window.addEventListener('resize', () => {
+    WIDTH = (PARENT_DIV.clientWidth - PADDING * 2) / size;
+    START = PARENT_DIV.offsetLeft + PADDING / 2;
+    console.log("resize", WIDTH, START);
 })
 
-let minSpeed = .00001;
-let speed = .5;
-function calculateDuration(evt) {
+function generateSpeeds(a, b, num) {
+  let speeds = []
+  for (let i = 1; i <= num; ++i)
+    speeds.push((i ** b) / a);
+  return speeds;
+}
+
+const speeds = generateSpeeds(1000, 2, 50);
+let speed = speeds.length >> 1;
+document.documentElement.style.setProperty('--anim-length', speeds[speed] + 's')
+console.log(speeds[speed])
+
+function getDuration(evt) {
+  if (evt.deltaY > 0 && speed < speeds.length - 1)
+    speed++;
+  else if (evt.deltaY < 0 && speed > 0)
+    speed--;
+  return (speeds[speed] + "s");
+}
+
+function changeTranstionDuration(evt) {
+  const duration = getDuration(evt);
+  document.documentElement.style.setProperty('--anim-length', duration)
   evt.preventDefault();
-  speed += evt.deltaY * -0.001;
-  speed = Math.min(Math.max(minSpeed, speed), 2);
-  return (speed + "s");
 }
 
-let ss = document.styleSheets[1].cssRules[4];
-function changeTranstionDuration(evt){
-  console.log(calculateDuration(evt));
-  ss.style.animationDuration = calculateDuration(evt);
-  ss.style.MozTransitionDuration = calculateDuration(evt);
-}
-
-document.body.onwheel = changeTranstionDuration;
+document.body.addEventListener('wheel', changeTranstionDuration, {passive: false})

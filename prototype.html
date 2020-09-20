@@ -8,7 +8,7 @@
 
     <style>
         :root{
-            --anim-length: .2s;
+            --anim-length: .02s;
         }
         body{
             /* margin: auto auto; */
@@ -38,11 +38,13 @@
         }
 
         .regular{
-            transition: all .2s ease-in-out;
+            transition: all var(--anim-length) ease-in-out;
+            -webkit-transition: all var(--anim-length) ease-in-out;
         }
 
         .fast{
-            transition: all 0.0001s ease-in-out;
+            transition: all 1ms ease-in-out;
+            -webkit-transition: all 1ms ease-in-out;
         }
 
         .controls{
