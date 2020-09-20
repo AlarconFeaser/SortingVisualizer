@@ -1,38 +1,33 @@
-import * as util from "../utils/util.js";
-import * as canvas from "../utils/canvas.js";
-import * as modal from "../utils/modal.js";
+import {swapArray} from '../util/util.js'
 
+function quickSort(arr, low, high, swaps) {
+  if (low < high) {
+    let pi = partition(arr, low, high, swaps);
+    quickSort(arr, low, pi - 1, swaps);
+    quickSort(arr, pi + 1, high, swaps);
+  }
+}
 
-    let arr = util.generateArray(50, 50);
-    let originY = canvas.height - 20;
-    let width = canvas.width/arr.length;
-    let spacing = width * 0.1;
-    let heightScale = canvas.height * 0.1;
-    let margin = spacing / 2;
+function partition(arr, low, high, swaps) {
+  let pivot = arr[high];
+  let i = low - 1;
+  for (let j = low; j <= high - 1; j++) 
+  {
+    if (arr[j] < pivot) 
+    {
+      i++;
+      swapArray(i, j, arr);
+      swaps.push([i, j])
+      console.log(swaps);
+    }
+  }
+  swapArray(i + 1, high, arr);
+  swaps.push([i + 1, high]);
+    return (i + 1)
+}
 
-    const drawArray = (arr) => {
-        arr.forEach((element, index) => {
-          let posX = index * width + margin;
-          let rectHeight = heightScale + element * 10;
-          canvas.ctx.fillStyle = "white";
-          canvas.ctx.fillRect(
-            posX,
-            originY -rectHeight ,
-            width - spacing,
-            rectHeight
-          );
-        });
-      };
+function swapsQuickSort(arr, swaps){
+    quickSort(arr, 0, arr.length - 1, swaps )
+}
 
-     //insertion sort
-
-    const currentInterval = setInterval(() => {
-
-
-    }, 1000/60);
-
-
-
-
-
-
+export{swapsQuickSort}

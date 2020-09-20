@@ -1,33 +1,18 @@
-
+import {generateArray, swapArray, shuffleArray} from './util/util.js'
+// import {bubbleSort} from './sortingAlgos/bubbleSort.js'
+import {swapsQuickSort} from './sortingAlgos/quickSort.js'
 const PADDING = 5;
-
-const swapArray = (x, y, arr) => [arr[x], arr[y]] = [arr[y], arr[x]];
-
-const shuffleArray = (arr) => {
-  const len = arr.length;
-  for (let i = 0; i < len; ++i) {
-    const pos = Math.ceil(Math.random() * (len - i - 1)) + i
-    swapArray(i, pos, arr);
-  }
-  return arr;
-}
-
-const generateArray = (size, max_num) => {
-  let arr = [];
-  const min_size = max_num / 25;
-  const chunk = (max_num - PADDING * 2) / size;
-  for (let i = 0; i < size; ++i) 
-    arr[i] = i * chunk + min_size;
-  return shuffleArray(arr);
-};
-
 const PARENT_DIV = document.querySelector(".parent");
-let size = 50;
-let arr = generateArray(size, Math.floor(PARENT_DIV.clientHeight * 0.98));
-let originalArray = [...arr];
-let divs = [];
+let size = 10;
 let WIDTH = (PARENT_DIV.clientWidth - PADDING * 2) / size;
 let START = PARENT_DIV.offsetLeft + PADDING / 2;
+let arr = generateArray(
+    size, 
+    Math.floor(PARENT_DIV.clientHeight * 0.98,
+    PADDING
+    ));
+let divs = [];
+
 
 const styleBar = (bar, height, left) => {
   bar.style.width = (WIDTH - PADDING) + "px";
@@ -52,17 +37,6 @@ const createDivsInsideParent = (arr, num) => {
 
 createDivsInsideParent(arr, size);
 
-const bubbleSort = (arr) => {
-  let swaps = []
-  for (let i = 0; i < arr.length - 1; i++)
-    for (let j = 1; j < arr.length - i; j++) {
-      if (arr[j - 1] > arr[j]) {
-        swapArray(j - 1, j, arr);
-        swaps.push([j - 1, j]);
-      }
-    }
-  return swaps;
-};
 
 const swapDivs = (d1, d2) => {
   let first = divs[d1].style.left;
@@ -75,8 +49,10 @@ const swapDivs = (d1, d2) => {
   divs[d1] = divs[d2];
   divs[d2] = temp;
 }
-
-let swaps = bubbleSort(arr);
+let swaps = [];
+swapsQuickSort(arr, swaps)
+console.log(swaps);
+// let swaps = bubbleSort(arr);
 
 let current = -1;
 let running = false;
@@ -205,5 +181,8 @@ function changeTranstionDuration(evt) {
   document.documentElement.style.setProperty('--anim-length', duration)
   evt.preventDefault();
 }
+
+const func = (evt) => console.log(evt.target.value); //do something
+document.querySelector('.selectForm').onchange = func;
 
 document.body.addEventListener('wheel', changeTranstionDuration, {passive: false})

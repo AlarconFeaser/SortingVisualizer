@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .message-dialog {
+        background-color: rgba(0, 0, 0, 0.75);
+        color: white;
+        pointer-events: none;
+        padding: 1.5em 3.0em;
+        border-radius: 2.0em;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        visibility:hidden;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%) translateY(-50%);
+    }
+    .dialog-fade {
+        animation: fade-in-out 5s; 
+    }
+    @keyframes fade-in-out {
+        0%{
+           visibility: visible;
+           opacity: 0; 
+        }
+        20%{
+            opacity: 1;
+        }
+        80%{
+            opacity: 1;
+        }
+        100%{
+            opacity: 0;
+            visibility: hidden;
+        }
+    }
+</style>
+<body>
+    <div class="message-dialog">
+        <span>Hello World</span>
+    </div>
+    <script>
+        let dialog = document.querySelector('.message-dialog');
+        document.addEventListener('wheel', () => {
+            dialog.classList.remove('dialog-fade')
+            void dialog.offsetWidth;
+            dialog.classList.add('dialog-fade')
+        })
+    </script>
+</body>
+</html>

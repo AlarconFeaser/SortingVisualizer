@@ -1,96 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- test -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sorting Algorithms</title>
-    <link rel="stylesheet" href="style/index.css">
+    <title>S O R T I N G 〰 V I S U A L I Z E R</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div class="title">
-        <h1>Sorting Algorithms</h1>
-    </div>
-    <div class = " grid ">
-    <div class="outer-div">
-        <a href="bubble.html">
-        <div class = "inner-div">
-            <h2>BUBBLE</h2>  
-        </div>
-    </a>
-    </div>
-    <div class="outer-div">
-        <a href="selection.html">
-            <div class="inner-div">
-                <h2>SELECTION</h2>
-            </div>
-        </a>
-    </div>
-    <div class="outer-div">
-        <a href="insertion.html">
-            <div class="inner-div">
-                <h2>INSERTION</h2>
-            </div>
-        </a>
-    </div>
-    <div class="outer-div">
-        <a href="quick.html">
-            <div class="inner-div">
-                <h2>QUICK</h2>
-            </div>
-        </a>
-    </div>
-    <div class="outer-div">
-        <a href="merge.html">
-            <div class="inner-div">
-                <h2>MERGE</h2>
-            </div>
-        </a>
-    </div>
-    <div class="outer-div">
-        <a href="merge.html">
-            <div class="inner-div">
-                <h2>BOGO</h2>
-            </div>
-        </a>
-    </div>
-</div>
 
-
-
-    <div class="collaborators">
-        <div class="inner-collaborator">
-            <a href="https://github.com/AFeas1987">
-                <img src="https://avatars1.githubusercontent.com/u/33380694?s=460&u=68d25aeffb624daa7be3a8d8f50077317a464186&v=4" alt="">
-            </a>
-            <a href="https://github.com/AlarconFeaser/SortingVisualizer">
-                    <img src="./assets/white-github.png" alt="">
-            </a>
-            <a href="https://github.com/PaulAlarcon">
-                <img src="https://avatars0.githubusercontent.com/u/37510926?s=460&u=d2be13553b4b1d6bea5deff9a250e9ec4bbbcb4f&v=4" alt="">
-            </a>
+    <div class="selectDiv">
+        <select name="select" class="selectForm">
+            <option value="0">Bubble Sort</option>
+            <option value="1">Merge Sort</option>
+            <option value="2">Quick Sort</option>
+        </select>
     </div>
 
-    <!-- <div class="modal" id="myModal">
-        <div class="modal-content">
-            <div class="button-container">
-                <a class="white" href="">
-                    <p>
-                        <span class="bg"></span>
-                        <span class="base"></span>
-                        <span class="text">Start Again</span>
-                    </p>
-                </a>
-                <a class="transparent" href="index.html">
-                    <p>
-                        <span class="bg"></span>
-                        <span class="base"></span>
-                        <span class="text">Check others</span>
-                    </p>
-                </a>
-            </div>
-        </div>
-    </div> -->
+    <div class="parent">
 
+    </div>
+
+    <div class="controls">
+        <div style="font-size:24px" class="control-canvas" id="firstButton"><i class="fa fa-fast-backward"></i></div>
+        <div style="font-size:24px" class="control-canvas" id="prevButton" ><i class="fa fa-backward"></i></div>
+        <div style="font-size:24px" class="control-canvas" id="playButton"><i class="fa fa-play" id="playPauseIcon"></i></div>
+        <div style="font-size:24px" class="control-canvas" id="nextButton"><i class="fa fa-forward"></i></div>
+        <div style="font-size:24px" class="control-canvas" id="finalButton" ><i class="fa fa-fast-forward"></i></div>
+    </div>
+
+    <script type="module" src="script/index.js"></script>
+    
 </body>
 </html>

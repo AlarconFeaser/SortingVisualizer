@@ -1,0 +1,125 @@
+:root{
+    --anim-length: .02s;
+}
+body{
+    /* margin: auto auto; */
+    /* align-items: center; */
+    /* justify-content: center; */
+    /* lighting-color: red; */
+    background-color : black;
+    height: 100vh;
+    overflow: hidden;
+}
+.parent{
+    background-color : black;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    width: 90%;
+    height: 80%;
+}
+.bar{
+    background-color : lightgreen;
+    /* border-style: groove; */
+    position: absolute;
+    /* margin: 0.125em; */
+    border-radius: 1rem;
+}
+
+.regular{
+    transition: all var(--anim-length) ease-in-out;
+    -webkit-transition: all var(--anim-length) ease-in-out;
+}
+
+.fast{
+    transition: all 1ms ease-in-out;
+    -webkit-transition: all 1ms ease-in-out;
+}
+
+.controls{
+    display: flex;
+    justify-content: center;
+    width: 100;
+}
+
+.controls div{
+    border: 1px solid black;
+    border-radius: 1rem;
+    cursor: pointer;
+    padding : 10px;
+    background-color: white;
+    box-shadow: 1px 1px 1px white;
+}
+
+.dialogBox {
+    position : absolute;
+    background-color:  white;
+    width : auto;
+    height : "auto";
+    color :black;
+    display : none;
+    border-radius : 1rem;
+    left : 50%;
+    /* bottom : 50%; */
+    top : 50%;
+    /* transform-origin: left top; 
+    transform-origin: center center;     */
+    /* -webkit-transform: translateX(150%); */
+
+    transform: translateX(-50%) translateY(-50%);
+    transition-timing-function: ease-in;
+    padding : 20px;
+    /* transition: all .6s ease-in-out; */
+    animation: anim 1.5s 1;
+}
+
+/* @-webkit-keyframes anim {
+0% {
+-webkit-transform: translateX(100%);
+    transform: translateX(100%);
+}
+50% {
+-webkit-transform: translateX(0);
+    transform: translateX(0);
+}
+} */
+
+@keyframes anim {
+0% {
+-webkit-transform: translateX(1000%);
+    transform: translateX(1000%);
+}
+25% {
+-webkit-transform: translateX(-50%) translateY(-100%);
+    transform: translateX(-50%) translateY(-100%);
+}
+60% {
+-webkit-transform: translateX(-100%) translateY(-50%);
+    transform: translateX(-100%) translateY(-50%);
+}
+/* 50% {
+-webkit-transform: translateX(-100%) translateY(-50%);
+    transform: translateX(-100%) translateY(-50%);
+}
+75% {
+-webkit-transform: translateX(-50%) translateY(-25%);
+    transform: translateX(-50%) translateY(-25%);
+} */
+}
+
+
+
+.bar:hover,
+.bar:focus{
+    /* -webkit-transform: scale(50%);
+            transform: scale(50%); */
+    opacity: .5;
+}
+
+.selectDiv{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
