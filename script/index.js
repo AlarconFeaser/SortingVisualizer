@@ -3,7 +3,7 @@ import {bubbleSort} from './sortingAlgos/bubbleSort.js'
 import {swapsQuickSort} from './sortingAlgos/quickSort.js'
 const PADDING = 5;
 const PARENT_DIV = document.querySelector(".parent");
-let size = 100;
+let size = 200;
 let WIDTH = (PARENT_DIV.clientWidth - PADDING * 2) / size;
 let START = PARENT_DIV.offsetLeft + PADDING / 2;
 let arr = generateArray(
@@ -49,10 +49,10 @@ const swapDivs = (d1, d2) => {
   divs[d1] = divs[d2];
   divs[d2] = temp;
 }
-// let swaps = [];
-// swapsQuickSort(arr, swaps)
-// console.log(swaps);
-let swaps = bubbleSort(arr);
+let swaps = [];
+console.log(swapsQuickSort(arr, swaps))
+console.log(swaps);
+// let swaps = bubbleSort(arr);
 
 let current = -1;
 let running = false;

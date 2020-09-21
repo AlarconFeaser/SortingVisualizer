@@ -113,9 +113,10 @@ body{
 
 .bar:hover,
 .bar:focus{
-    /* -webkit-transform: scale(50%);
-            transform: scale(50%); */
-    opacity: .5;
+    /* -webkit-transform: scale(150%);
+            transform: scale(150%); */
+    opacity: .1;
+    background-color : lightseagreen;
 }
 
 .selectDiv{

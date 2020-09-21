@@ -16,13 +16,17 @@ function partition(arr, low, high, swaps) {
     if (arr[j] < pivot) 
     {
       i++;
-      swapArray(i, j, arr);
-      swaps.push([i, j])
-      console.log(swaps);
+      if(i != j){
+        swapArray(i, j, arr);
+        swaps.push([i, j])
+      }
     }
   }
-  swapArray(i + 1, high, arr);
-  swaps.push([i + 1, high]);
+  let temp = i + 1;
+  if(temp != high){
+    swapArray(i + 1, high, arr);
+    swaps.push([i + 1, high]);
+  }
     return (i + 1)
 }
 
