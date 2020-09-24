@@ -5,8 +5,11 @@ const shuffleArray = (arr) => {
     const len = arr.length;
     for (let i = 0; i < len; ++i) {
       const pos = Math.ceil(Math.random() * (len - i - 1)) + i
-      swapArray(i, pos, arr);
-      if(i != pos) swaps.push([i, pos])
+      if(i != pos){
+        swapArray(i, pos, arr);
+        swaps.push([i, pos])
+        console.log(i, pos);
+      }
     }
     return {arr, swaps};
   }

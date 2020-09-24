@@ -170,7 +170,7 @@ function shuffle(){
     BARS.forEach(b => b.classList.replace('regular', 'fast'));
     PLAY_BUTTON.classList.replace('fa-play', 'fa-pause');
     swaps = shuffleArray(arr).swaps;
-    current = 0;
+    current = -1;
     swap();
   }
 }
