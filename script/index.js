@@ -164,20 +164,18 @@ document.querySelector('#finalButton').addEventListener('click', () => {
 })
 
 function shuffle(){
-  swaps = shuffleArray(arr).swaps;
-  current = 0;
-}
-
-document.querySelector('#shuffleButton').addEventListener('click', () => {
   if (!running) {
     forward = true;
     running = true;
     BARS.forEach(b => b.classList.replace('regular', 'fast'));
     PLAY_BUTTON.classList.replace('fa-play', 'fa-pause');
-    shuffle();
+    swaps = shuffleArray(arr).swaps;
+    current = 0;
     swap();
   }
-})
+}
+
+document.querySelector('#shuffleButton').addEventListener('click', shuffle);
 
 window.addEventListener('resize', () => {
     WIDTH = (PARENT_DIV.clientWidth - PADDING * 2) / size;
@@ -213,10 +211,9 @@ function changeTranstionDuration(evt) {
 
 const changeAlgorithm = (evt) => {
   let selection = Number(evt.target.value);
-  console.log(selection);
+  shuffle();
   switch( selection ){
     case 0:
-      shuffle();
       break;
     case 1:
       break;
