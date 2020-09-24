@@ -1,9 +1,15 @@
-import {generateArray, swapArray, shuffleArray} from './util/util.js'
+import {generateArray, shuffleArray} from './util/util.js'
 import {bubbleSort} from './sortingAlgos/bubbleSort.js'
 import {swapsQuickSort} from './sortingAlgos/quickSort.js'
+import {mergeSort} from './sortingAlgos/mergeSort.js'
+import {selectionSort} from './sortingAlgos/selectionSort.js'
+import {insertionSort} from './sortingAlgos/insertionSort.js'
+
+
 const PADDING = 5;
 const PARENT_DIV = document.querySelector(".parent");
-let size = 200;
+
+let size = 10;
 let WIDTH = (PARENT_DIV.clientWidth - PADDING * 2) / size;
 let START = PARENT_DIV.offsetLeft + PADDING / 2;
 let arr = generateArray(
@@ -50,9 +56,15 @@ const swapDivs = (d1, d2) => {
   divs[d2] = temp;
 }
 let swaps = [];
-console.log(swapsQuickSort(arr, swaps))
-console.log(swaps);
-// let swaps = bubbleSort(arr);
+// console.log(swapsQuickSort(arr, swaps))
+// console.log(swaps);
+// swaps = bubbleSort(arr);
+swaps = insertionSort(arr);
+// swaps = selectionSort(arr);
+
+
+// mergeSort(arr);
+// console.log(arr);
 
 let current = -1;
 let running = false;
@@ -92,6 +104,7 @@ const pause = () => {
   BARS.forEach(b => b.classList.replace('fast', 'regular'));
   PLAY_BUTTON.classList.replace('fa-pause', 'fa-play');
 }
+
 
 // Button click listeners: 
 
@@ -150,6 +163,22 @@ document.querySelector('#finalButton').addEventListener('click', () => {
   }
 })
 
+function shuffle(){
+  swaps = shuffleArray(arr).swaps;
+  current = 0;
+}
+
+document.querySelector('#shuffleButton').addEventListener('click', () => {
+  if (!running) {
+    forward = true;
+    running = true;
+    BARS.forEach(b => b.classList.replace('regular', 'fast'));
+    PLAY_BUTTON.classList.replace('fa-play', 'fa-pause');
+    shuffle();
+    swap();
+  }
+})
+
 window.addEventListener('resize', () => {
     WIDTH = (PARENT_DIV.clientWidth - PADDING * 2) / size;
     START = PARENT_DIV.offsetLeft + PADDING / 2;
@@ -182,7 +211,27 @@ function changeTranstionDuration(evt) {
   evt.preventDefault();
 }
 
-const func = (evt) => console.log(evt.target.value); //do something
-document.querySelector('.selectForm').onchange = func;
+const changeAlgorithm = (evt) => {
+  let selection = Number(evt.target.value);
+  console.log(selection);
+  switch( selection ){
+    case 0:
+      shuffle();
+      break;
+    case 1:
+      break;
+    case 2:
+      break;
+    case 3:
+      break;
+    case 4:
+      break;
+    default:
+      console.log("nothing selected");
+
+  }
+  
+}; //do something
+document.querySelector('.selectForm').onchange = changeAlgorithm;
 
 document.body.addEventListener('wheel', changeTranstionDuration, {passive: false})
