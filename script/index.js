@@ -239,13 +239,13 @@ function selectAlgorithm(n){
     case 2:
       return() => {
         console.log("Sorting using QuickSort....");
-        swapsQuickSort(arr, swaps);
-        console.log(swaps)
-        forward = true;
-        running = true;
-        current = -1;
-        swap();
-        currentSort = undefined;
+        // swapsQuickSort(arr, swaps);
+        // console.log(swaps)
+        // forward = true;
+        // running = true;
+        // current = -1;
+        // swap();
+        // currentSort = undefined;
       }
     case 3:
       return() => {
