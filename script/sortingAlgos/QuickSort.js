@@ -31,6 +31,7 @@ function partition(arr, low, high, swaps) {
 }
 
 function swapsQuickSort(arr, swaps){
+    swaps = [];
     quickSort(arr, 0, arr.length - 1, swaps )
 }
 

@@ -8,7 +8,6 @@ const shuffleArray = (arr) => {
       if(i != pos){
         swapArray(i, pos, arr);
         swaps.push([i, pos])
-        console.log(i, pos);
       }
     }
     return {arr, swaps};
@@ -20,8 +19,8 @@ const shuffleArray = (arr) => {
     const chunk = (max_num - pad * 2) / size;
     for (let i = 0; i < size; ++i) 
       arr[i] = i * chunk + min_size;
-    // return shuffleArray(arr);
-      return arr
+    return shuffleArray(arr).arr;
+      // return arr
   };
 
 
