@@ -1,9 +1,9 @@
 import {generateArray, shuffleArray} from './util/util.js'
-import {bubbleSort} from './sortingAlgos/bubbleSort.js'
-import {swapsQuickSort} from './sortingAlgos/quickSort.js'
-import {mergeSort} from './sortingAlgos/mergeSort.js'
-import {selectionSort} from './sortingAlgos/selectionSort.js'
-import {insertionSort} from './sortingAlgos/insertionSort.js'
+import sorts from './sortingAlgos/sortingAlgos.js'
+// import {swapsQuickSort} from './sortingAlgos/quickSort.js'
+// import {mergeSort} from './sortingAlgos/sortingAlgos.js'
+// import {selectionSort} from './sortingAlgos/selectionSort.js'
+// import {insertionSort} from './sortingAlgos/insertionSort.js'
 
 const PADDING = 5;
 const PARENT_DIV = document.querySelector(".parent");
@@ -227,7 +227,7 @@ function selectAlgorithm(n){
     case 0:
       return() => {
         console.log("Sorting using Bubble");
-        swaps = bubbleSort(arr);
+        swaps = sorts.bubbleSort(arr);
         forward = true;
         running = true;
         current = -1;
@@ -258,7 +258,7 @@ function selectAlgorithm(n){
     case 3:
       return() => {
         console.log("Sorting using Selection......");
-        swaps = selectionSort(arr);
+        swaps = sorts.selectionSort(arr);
         forward = true;
         running = true;
         current = -1;
@@ -268,7 +268,7 @@ function selectAlgorithm(n){
     case 4:
       return() => {
         console.log("Sorting using Insertion..");
-        swaps = insertionSort(arr);
+        swaps = sorts.insertionSort(arr);
         forward = true;
         running = true;
         current = -1;
