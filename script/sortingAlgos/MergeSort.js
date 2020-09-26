@@ -1,110 +1,61 @@
-import {swapArray} from '../util/util.js'
+export default { mergeSort : (arr) => {
+    /*
+        Performs a custom binary search on sorted ranges A=[i,m] 
+        and B=[j,n].  Returns the number of elements to swap from
+        the end of A with the beginning of B.
+        Assumes: 
+            i < m < j < n
+            m through i and n through j are sorted
+    */
+    function binarySearchForPivot(i, m, j, n) {
+        if (arr[m] <= arr[j]) // no swaps needed
+            return 0;
+        // console.log(`${i}, ${m}, ${j}, ${n}`, arr.slice(i, m + 1), arr.slice(j, n + 1))
+        let high = Math.min(m - i + 1, n - j + 1); // number of elements
+        let low = 0;
+        let pivot = (high - low + 1) >> 1;
+        while(high > low + pivot) {
+            if (arr[m - pivot - low + 1] > arr[j + pivot + low - 1]) {  // check inside of pivot
+                low += pivot;
+                if (j + low > n || m - low < i // out of range
+                    || arr[m - low] <= arr[j + low]) // check outside of pivot
+                    return low;
+            }
+            else
+                high = low + pivot
+            pivot = (high - low + 1) >> 1;
+        }
+        return low + pivot;
+    }
 
-// function merge(arr, start, mid, end)
-// {
-//     let start2 = mid + 1;
+    function inPlaceMerge(i, m, j, n) {
+        const numSwaps = binarySearchForPivot(i, m, j, n);
+        if (numSwaps == 0)
+            return;
+        for (let x = 1; x <= numSwaps; ++x) // swap numSwaps elements along center pivot
+            [arr[m - numSwaps + x], arr[j + x - 1]] = [arr[j + x - 1], arr[m - numSwaps + x]]
+        if (m - i > 1) // sort left subarrays
+            inPlaceMerge(i, m - numSwaps, m - numSwaps + 1, m)
+        else if (m - i == 1 && arr[m] < arr[i])
+            [arr[i], arr[m]] = [arr[m], arr[i]]
+        if (n - j > 1) // sort right subarrays
+            inPlaceMerge(j, j + numSwaps - 1, j + numSwaps, n)
+        else if (n - j == 1 && arr[n] < arr[j])
+            [arr[j], arr[n]] = [arr[n], arr[j]]
+    }
 
-//     // If the direct merge is already sorted
-//     if (arr[mid] <= arr[start2]) {
-//         return;
-//     }
-
-//     // Two pointers to maintain start
-//     // of both arrays to merge
-//     while (start <= mid && start2 <= end) {
-
-//         // If element 1 is in right place
-//         if (arr[start] <= arr[start2]) {
-//             start++;
-//         }
-//         else {
-//             let value = arr[start2];
-//             let index = start2;
-
-//             // Shift all the elements between element 1
-//             // element 2, right by 1.
-//             while (index != start) {
-//                 arr[index] = arr[index - 1];
-//                 //swap
-//                 index--;
-//             }
-//             arr[start] = value;
-//             //swap
-
-//             // Update all the pointers
-//             start++;
-//             mid++;
-//             start2++;
-//         }
-//     }
-// }
-
-
-
-// /* l is for left index and r is right index of the
-//    sub-array of arr to be sorted */
-// function mergeSort(arr, l, r)
-// {
-//     if (l < r) {
-
-//         // Same as (l + r) / 2, but avoids overflow
-//         // for large l and r
-//         let m = l + (r - l) / 2;
-
-//         // Sort first and second halves
-//         mergeSort(arr, l, m);
-//         mergeSort(arr, m + 1, r);
-
-//         merge(arr, l, m, r);
-//     }
-// }
-
-
-
-  /*
-MERGE SORT IN-PLACE
-
-group size starts at 1
-
-compare two adjacent groups at a time
-create pointer to start of each group
-compare values at pointers, swap accordingly
-keep going until both groups are sorted
-move to next two groups, repeat for entire array
-
-then double group size and repeat
-
-  */
-
-
- function mergeSort(arr) {
-	let groupSize = 1;
-	const len = arr.length;
-
-	 while(groupSize <= len >> 1) {  // stop condition
-		let pos = 0;
-		let i = pos;
-		let j = pos + groupSize;
-		const m = groupSize;
-		const n = Math.min(groupSize, len - j);
-		while (i < pos + m && j < pos + groupSize + n) 
-		{
-			if (arr[i] > arr[j])
-			{
-				swapArray(i, j, arr);
-
-			}
-
-		}
-		 for(let i = pos + groupSize; i < pos ; i += groupSize) {  // loop through pairs of groups
-		   for(let j = pos + i - groupSize; j < groupSize; ++j) {  // merge groups
-			   if(arr[j] > arr[j + 1])  {
-				   swapArray(j, j+1, arr);
-			   }
-		   }
-		 }
-		 groupSize = groupSize << 1;
-	 }
-}
-
-export {mergeSort}
+    for (let i = 0; i < arr.length; i += 2) // pairwise sort of array
+        if (arr[i] > arr[i + 1])
+            [arr[i], arr[i + 1]] = [arr[i + 1], arr[i]]
+    let groupSize = 2;
+    while ((groupSize << 1) < arr.length) { // merge groups in pairs
+        const remainder = arr.length % (groupSize << 1);
+        const len = arr.length - remainder;
+        for (let i = 0; i < len; i += groupSize << 1)
+            inPlaceMerge(i, i + groupSize - 1, i + groupSize, i + (groupSize << 1) - 1)
+        if (remainder > groupSize)
+            inPlaceMerge(len, len + groupSize - 1, len + groupSize, len + remainder - 1)
+        groupSize <<= 1;
+    } 
+    inPlaceMerge(0, groupSize - 1, groupSize, arr.length - 1)
+}}

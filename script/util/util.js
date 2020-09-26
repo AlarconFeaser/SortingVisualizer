@@ -13,10 +13,12 @@ const shuffleArray = (arr) => {
     return {arr, swaps};
   }
 
-  const generateArray = (size, max_num, pad = 5) => {
+  const generateArray = (size, max_height, padding = 5) => {
     let arr = [];
-    const min_size = max_num / 25;
-    const chunk = (max_num - pad * 2) / size;
+    max_height -= (padding << 1)
+    max_height -= max_height % size
+    const min_size = max_height / size;
+    const chunk = max_height / size;
     for (let i = 0; i < size; ++i) 
       arr[i] = i * chunk + min_size;
     return shuffleArray(arr).arr;

@@ -5,20 +5,16 @@ import {mergeSort} from './sortingAlgos/mergeSort.js'
 import {selectionSort} from './sortingAlgos/selectionSort.js'
 import {insertionSort} from './sortingAlgos/insertionSort.js'
 
-
 const PADDING = 5;
 const PARENT_DIV = document.querySelector(".parent");
-
-let size = 5;
+let size = 21;
 let WIDTH = (PARENT_DIV.clientWidth - PADDING * 2) / size;
 let START = PARENT_DIV.offsetLeft + PADDING / 2;
 let arr = generateArray(
-    size, 
-    Math.floor(PARENT_DIV.clientHeight * 0.98,
-    PADDING
-    ));
+              size, 
+              Math.floor(PARENT_DIV.clientHeight * 0.98, PADDING)
+          );
 let divs = [];
-
 
 const styleBar = (bar, height, left) => {
   bar.style.width = (WIDTH - PADDING) + "px";
@@ -43,12 +39,24 @@ const createDivsInsideParent = (arr, num) => {
 
 createDivsInsideParent(arr, size);
 
-
 const swapDivs = (d1, d2) => {
   let first = divs[d1].style.left;
   let second = divs[d2].style.left;
   divs[d1].style.left = second;
+  divs[d1].style.zIndex = 1000;
   divs[d2].style.left = first;
+  let animLen = 1000 * parseFloat(document.documentElement.style.getPropertyValue('--anim-length'))
+  console.log(animLen)
+  divs[d1].animate({
+    transform: ['scale(1)', 'scale(1.5)', 'scale(1)'],
+    // offset: [ 0, .5, 1.0 ],
+    easing: [ 'ease-in-out' ],
+  }, {duration: animLen})
+  divs[d2].animate({
+    transform: ['scale(1)', 'scale(0.5)', 'scale(1)'],
+    // offset: [ 0, .5, 1.0 ],
+    easing: [ 'ease-in-out' ],
+  }, {duration: animLen})
   divs[d1].style.backgroundColor = forward ? 'red' : 'blue';
   divs[d2].style.backgroundColor = forward ? 'blue' : 'red';
   let temp = divs[d1];
@@ -75,6 +83,7 @@ let currentSort = undefined;
 
 PARENT_DIV.addEventListener("transitionend", (evt) => {
   if (evt.propertyName == 'left') {
+    evt.target.style.zIndex = 1
     if (!firstAnim)
       running ? swap() : pause();
     firstAnim = !firstAnim;
@@ -109,7 +118,6 @@ const pause = () => {
   BARS.forEach(b => b.classList.replace('fast', 'regular'));
   PLAY_BUTTON.classList.replace('fa-pause', 'fa-play');
 }
-
 
 // Button click listeners: 
 
