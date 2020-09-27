@@ -1,6 +1,7 @@
 import {swapArray} from '../util/util.js'
 
 const bubbleSort = (arr) => {
+  console.log("In bubble sort");
     let swaps = []
     for (let i = 0; i < arr.length - 1; i++)
       for (let j = 1; j < arr.length - i; j++) {
