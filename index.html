@@ -11,6 +11,7 @@
 
     <div class="selectDiv">
         <select name="select" class="selectForm">
+            <option value="-1" selected>Select Algorithm</option>
             <option value="0" selected>Bubble Sort</option>
             <option value="1">Merge Sort</option>
             <option value="2">Quick Sort</option>
@@ -23,15 +24,28 @@
 
     </div>
 
-    <div class="controls">
-        <div style="font-size:24px" class="control-canvas" id="firstButton"><i class="fa fa-fast-backward"></i></div>
-        <div style="font-size:24px" class="control-canvas" id="prevButton" ><i class="fa fa-backward"></i></div>
-        <div style="font-size:24px" class="control-canvas" id="playButton"><i class="fa fa-play" id="playPauseIcon"></i></div>
-        <div style="font-size:24px" class="control-canvas" id="nextButton"><i class="fa fa-forward"></i></div>
-        <div style="font-size:24px" class="control-canvas" id="finalButton" ><i class="fa fa-fast-forward"></i></div>
-        <div style="font-size:24px" class="control-canvas" id="shuffleButton" ><i class="fa fa-random"></i></div>
+    <div class="control-panel">
+        <div class="panel">
+            <div class="currentStep">
+                <span>Current</span>
+                <span class="currentValue">0</span>
+            </div>
+            <div class="totalSteps">
+                <span>Total</span>
+                <span class="totalValue">0</span>
+            </div>
 
+        </div>
+        <div class="controls">
+            <div style="font-size:24px" class="control-canvas" id="firstButton"><i class="fa fa-fast-backward"></i></div>
+            <div style="font-size:24px" class="control-canvas" id="prevButton" ><i class="fa fa-backward"></i></div>
+            <div style="font-size:24px" class="control-canvas" id="playButton"><i class="fa fa-play" id="playPauseIcon"></i></div>
+            <div style="font-size:24px" class="control-canvas" id="nextButton"><i class="fa fa-forward"></i></div>
+            <div style="font-size:24px" class="control-canvas" id="finalButton" ><i class="fa fa-fast-forward"></i></div>
+            <div style="font-size:24px" class="control-canvas" id="shuffleButton" ><i class="fa fa-random"></i></div>
+        </div>
     </div>
+   
     
 
     <script type="module" src="script/index.js"></script>

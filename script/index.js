@@ -1,9 +1,5 @@
 import {generateArray, shuffleArray} from './util/util.js'
 import sorts from './sortingAlgos/sortingAlgos.js'
-// import {swapsQuickSort} from './sortingAlgos/quickSort.js'
-// import {mergeSort} from './sortingAlgos/sortingAlgos.js'
-// import {selectionSort} from './sortingAlgos/selectionSort.js'
-// import {insertionSort} from './sortingAlgos/insertionSort.js'
 
 const PADDING = 5;
 const PARENT_DIV = document.querySelector(".parent");
@@ -46,7 +42,7 @@ const swapDivs = (d1, d2) => {
   divs[d1].style.zIndex = 1000;
   divs[d2].style.left = first;
   let animLen = 1000 * parseFloat(document.documentElement.style.getPropertyValue('--anim-length'))
-  console.log(animLen)
+  // console.log(animLen)
   divs[d1].animate({
     transform: ['scale(1)', 'scale(1.5)', 'scale(1)'],
     // offset: [ 0, .5, 1.0 ],
@@ -64,15 +60,6 @@ const swapDivs = (d1, d2) => {
   divs[d2] = temp;
 }
 let swaps = [];
-// console.log(swapsQuickSort(arr, swaps))
-// console.log(swaps);
-// swaps = bubbleSort(arr);
-// swaps = insertionSort(arr);
-// swaps = selectionSort(arr);
-
-
-// mergeSort(arr);
-// console.log(arr);
 
 let current = -1;
 let running = false;
@@ -93,14 +80,17 @@ PARENT_DIV.addEventListener("transitionend", (evt) => {
 })
 
 const swap = () => {
-  if (forward && current < swaps.length - 1)
+  if (forward && current < swaps.length - 1){
     animateSwap(++current);
-  else if (!forward && current >= 0)
+    currentOnScreen(current);
+  } 
+  else if (!forward && current >= 0){
     animateSwap(current--);
+    currentOnScreen(current);
+  }
   else{
     pause();
     if(currentSort != undefined) currentSort()
-
   }
 
 } 
@@ -112,6 +102,7 @@ const BARS = document.querySelectorAll('.bar');
 
 const pause = () => {
   console.log('paused', current, swaps.length)
+  enableSelectForm();
   running = false;
   pauseable = true;
   forward = true;
@@ -125,6 +116,7 @@ document.querySelector('#firstButton').addEventListener('click', () => {
   if (!running) {
     forward = false;
     running = true;
+    disableSelectForm();
     BARS.forEach(b => b.classList.replace('regular', 'fast'))
     PLAY_BUTTON.classList.replace('fa-play', 'fa-pause')
     swap();
@@ -146,8 +138,10 @@ document.querySelector('#playButton').addEventListener('click', () => {
         BARS.forEach(b => b.classList.replace('fast', 'regular'))
         PLAY_BUTTON.classList.replace('fa-pause', 'fa-play')
         running = false;
+        enableSelectForm();
     }
     else {  // play
+      disableSelectForm();
       running = true;
       forward = true;
       BARS.forEach(b => b.classList.replace('fast', 'regular'))
@@ -168,6 +162,7 @@ document.querySelector('#nextButton').addEventListener('click', () => {
 
 document.querySelector('#finalButton').addEventListener('click', () => {
   if (!running) {
+    disableSelectForm();
     forward = true;
     running = true;
     BARS.forEach(b => b.classList.replace('regular', 'fast'))
@@ -180,10 +175,12 @@ function shuffle(){
   if (!running) {
     forward = true;
     running = true;
+    disableSelectForm();
     BARS.forEach(b => b.classList.replace('regular', 'fast'));
     PLAY_BUTTON.classList.replace('fa-play', 'fa-pause');
     swaps = shuffleArray(arr).swaps;
     current = -1;
+    pauseable = false;
     swap();
   }
 }
@@ -228,11 +225,8 @@ function selectAlgorithm(n){
       return() => {
         console.log("Sorting using Bubble");
         swaps = sorts.bubbleSort(arr);
-        forward = true;
-        running = true;
-        current = -1;
-        swap();
-        currentSort = undefined;
+        reset();
+        totalOnScreen(swaps.length);
       }
     case 1:
       return() => {
@@ -259,21 +253,15 @@ function selectAlgorithm(n){
       return() => {
         console.log("Sorting using Selection......");
         swaps = sorts.selectionSort(arr);
-        forward = true;
-        running = true;
-        current = -1;
-        swap();
-        currentSort = undefined;
+        totalOnScreen(swaps.length);
+        reset();
       }
     case 4:
       return() => {
         console.log("Sorting using Insertion..");
         swaps = sorts.insertionSort(arr);
-        forward = true;
-        running = true;
-        current = -1;
-        swap();
-        currentSort = undefined;
+        totalOnScreen(swaps.length);
+        reset();
       }
     default:
       break;
@@ -282,14 +270,42 @@ function selectAlgorithm(n){
 
 }
 
+const reset = () => {
+  forward = true;
+  current = -1;
+  currentSort = undefined;
+}
+
 const changeAlgorithm = (evt) => {
   let selection = Number(evt.target.value);
-  shuffle();
-  currentSort = selectAlgorithm(selection);
+  if(selection >= 0){
+    shuffle();
+    currentSort = selectAlgorithm(selection);
   }
-document.querySelector('.selectForm').value = -1;
+  }
 
 
-document.querySelector('.selectForm').onchange = changeAlgorithm;
+  
+
+const selectForm = document.querySelector('.selectForm');
+selectForm.onchange = changeAlgorithm;
+selectForm.value = -1;
+function disableSelectForm(){selectForm.disabled = true}
+function enableSelectForm(){selectForm.disabled = false}
+
+
+const currentElement = document.querySelector('.currentStep .currentValue')
+function currentOnScreen(n){
+  currentElement.innerHTML = "";
+  currentElement.appendChild(document.createTextNode((n + 1)));
+}
+
+const totalElement = document.querySelector('.totalSteps .totalValue')
+function totalOnScreen(n){
+  totalElement.innerHTML = "";
+  totalElement.appendChild(document.createTextNode(n));
+}
+
+
 
 document.body.addEventListener('wheel', changeTranstionDuration, {passive: false})

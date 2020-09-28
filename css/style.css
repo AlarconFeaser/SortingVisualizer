@@ -1,11 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,500&display=swap');
 :root{
     --anim-length: .02s;
 }
 body{
-    /* margin: auto auto; */
-    /* align-items: center; */
-    /* justify-content: center; */
-    /* lighting-color: red; */
     background-color : black;
     height: 100vh;
     overflow: hidden;
@@ -18,13 +16,11 @@ body{
     align-items: center;
     margin: auto;
     width: 90%;
-    height: 80%;
+    height: 70%;
 }
 .bar{
     background-color : lightgreen;
-    /* border-style: groove; */
     position: absolute;
-    /* margin: 0.125em; */
     border-radius: 1rem;
 }
 
@@ -41,7 +37,8 @@ body{
 .controls{
     display: flex;
     justify-content: center;
-    width: 100;
+    align-items: center;
+    /* justify-content: space-between; */
 }
 
 .controls div{
@@ -49,8 +46,10 @@ body{
     border-radius: 1rem;
     cursor: pointer;
     padding : 10px;
+    /* margin-left: 5px; */
     background-color: white;
     box-shadow: 1px 1px 1px 0.5px white;
+    /* max-height: 2rem; */
 }
 
 .dialogBox {
@@ -131,9 +130,6 @@ body{
 
 .bar:hover,
 .bar:focus {
-    /* -webkit-transform: scale(150%);
-            transform: scale(150%); */
-    /* opacity: .1; */
     background-color : white;
 }
 
@@ -141,4 +137,51 @@ body{
     display: flex;
     justify-content: center;
     width: 100%;
+}
+
+
+/* panel control */
+.control-panel{
+    display: flex;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.control-panel .panel{
+    flex: initial;
+    display: flex;
+    font-family: 'Orbitron', sans-serif;
+    color  : white;
+    align-self: center;
+    font-size: 10px;
+}
+
+.control-panel .panel div{
+    padding: 10px;
+    border-radius: 25px;
+}
+
+.control-panel .controls{
+   flex: auto;
+}
+
+.currentStep, .totalSteps{
+    display: flex;
+    flex-direction: column;
+}
+
+.totalValue, .currentValue{
+    font-size: 5vh;
+}
+
+.selectForm{
+    font-family: 'Montserrat', sans-serif;
+    font-size : 2.5vh;
+    color : white;
+    background-color : black;
+    /* box-shadow: 0 1px 0 1px rgba(252, 252, 252, 0.04); */
+    -moz-appearance: none;
+	-webkit-appearance: none;
+    appearance: none;
+    border: none;
 }
