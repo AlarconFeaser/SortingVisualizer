@@ -1,6 +1,5 @@
 import {generateArray, shuffleArray} from './util/util.js'
 import sorts from './sortingAlgos/sortingAlgos.js'
-
 const PADDING = 5;
 const PARENT_DIV = document.querySelector(".parent");
 let size = 21;

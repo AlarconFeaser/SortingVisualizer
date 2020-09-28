@@ -49,7 +49,10 @@ body{
     /* margin-left: 5px; */
     background-color: white;
     box-shadow: 1px 1px 1px 0.5px white;
+<<<<<<< HEAD
     /* max-height: 2rem; */
+=======
+>>>>>>> 57a2f987c27a3f5e918ebc8f469329a9d1be3f1c
 }
 
 .dialogBox {
@@ -130,6 +133,12 @@ body{
 
 .bar:hover,
 .bar:focus {
+<<<<<<< HEAD
+=======
+    /* -webkit-transform: scale(150%);
+            transform: scale(150%); */
+    /* opacity: .1; */
+>>>>>>> 57a2f987c27a3f5e918ebc8f469329a9d1be3f1c
     background-color : white;
 }
 
