@@ -1,8 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,500&display=swap');
+
+*{
+    padding: 0;
+    margin : 0;
+    box-sizing: border-box;
+}
+
 :root{
     --anim-length: .02s;
 }
+
 body{
     background-color : black;
     height: 100vh;
@@ -49,17 +57,13 @@ body{
     /* margin-left: 5px; */
     background-color: white;
     box-shadow: 1px 1px 1px 0.5px white;
-<<<<<<< HEAD
-    /* max-height: 2rem; */
-=======
->>>>>>> 57a2f987c27a3f5e918ebc8f469329a9d1be3f1c
 }
 
 .dialogBox {
     position : absolute;
     background-color:  white;
     width : auto;
-    height : "auto";
+    height : auto;
     color :black;
     display : none;
     border-radius : 1rem;
@@ -88,26 +92,7 @@ body{
 }
 } */
 
-/* @keyframes in3d {
-    50% {
-        -webkit-transform: scale(1.5);
-        transform: scale(1.5);
-    }  
-    100% {
-        -webkit-transform: scale(1.0);
-        transform: scale(1.0);
-    }  
-}
-@keyframes out3d {
-    50% {
-        -webkit-transform: scale(0.5);
-        transform: scale(0.5);
-    }  
-    100% {
-        -webkit-transform: scale(1.0);
-        transform: scale(1.0);
-    }  
-}     */
+
 @keyframes anim {
 0% {
     -webkit-transform: translateX(1000%);
@@ -121,33 +106,12 @@ body{
 -webkit-transform: translateX(-100%) translateY(-50%);
     transform: translateX(-100%) translateY(-50%);
 }
-/* 50% {
--webkit-transform: translateX(-100%) translateY(-50%);
-    transform: translateX(-100%) translateY(-50%);
-}
-75% {
--webkit-transform: translateX(-50%) translateY(-25%);
-    transform: translateX(-50%) translateY(-25%);
-} */
 }
 
 .bar:hover,
 .bar:focus {
-<<<<<<< HEAD
-=======
-    /* -webkit-transform: scale(150%);
-            transform: scale(150%); */
-    /* opacity: .1; */
->>>>>>> 57a2f987c27a3f5e918ebc8f469329a9d1be3f1c
     background-color : white;
 }
-
-.selectDiv {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-}
-
 
 /* panel control */
 .control-panel{
@@ -157,30 +121,80 @@ body{
 }
 
 .control-panel .panel{
-    flex: initial;
     display: flex;
     font-family: 'Orbitron', sans-serif;
     color  : white;
     align-self: center;
-    font-size: 10px;
-}
-
-.control-panel .panel div{
-    padding: 10px;
-    border-radius: 25px;
+    width: 30%;
 }
 
 .control-panel .controls{
-   flex: auto;
+    width: 40%;
+    margin-right: 30%; /*necessary to center control buttons*/
+ }
+ 
+
+.control-panel .panel div{
+    border: .1rem solid white; 
+    background-color: rgba(67, 1, 80, .5);
+    /* padding : 5px; */
 }
 
-.currentStep, .totalSteps{
+.panel .steps{
+    width: 70%;
+}
+
+.panel .speed{
+    width: 30%;
+}
+
+.panel .header{
+    width: 100%;
+    font-size: 3vh;
+}
+
+.panel .steps, 
+.panel .speed{
     display: flex;
     flex-direction: column;
+    text-align: center;
+    border: none;
+}
+
+.panel .steps .content{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    /* background-color: aqua; */
+    /* border: none; */
+}
+
+.speed .speedValue{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .totalValue, .currentValue{
-    font-size: 5vh;
+    font-size : 3vw;
+    display: flex;
+    /* text-align: center; */
+
+}
+
+.speedValue{
+    font-size: 1.8vw;
+    padding : 10px;
+}
+
+
+/* select form */
+
+.selectDiv {
+    display: flex;
+    justify-content: center;
+    width: 100%;
 }
 
 .selectForm{

@@ -113,10 +113,8 @@ quickSort : (arr, low, high, swaps) => {
   function partition(arr, low, high, swaps) {
 	let pivot = arr[high];
 	let i = low - 1;
-	for (let j = low; j <= high - 1; j++) 
-	{
-	  if (arr[j] < pivot) 
-	  {
+	for (let j = low; j <= high - 1; j++) {
+	  if (arr[j] < pivot) {
 		i++;
 		if(i != j){
 		  swapArray(i, j, arr);
@@ -132,6 +130,6 @@ quickSort : (arr, low, high, swaps) => {
 	  return (i + 1)
   }
   swaps = [];
-  qsort(arr, 0, arr.length - 1, swaps)
+  qsort(arr, low, high, swaps)
 }
 }

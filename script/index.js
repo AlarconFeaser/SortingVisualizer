@@ -66,6 +66,7 @@ let firstAnim = true;
 let forward = true;
 let pauseable = true;
 let currentSort = undefined;
+let shuffling = false;
 
 PARENT_DIV.addEventListener("transitionend", (evt) => {
   if (evt.propertyName == 'left') {
@@ -90,6 +91,11 @@ const swap = () => {
   else{
     pause();
     if(currentSort != undefined) currentSort()
+    if(shuffling) {
+      shuffling = false
+      // swaps = [];
+      // reset();
+    };
   }
 
 } 
@@ -172,6 +178,7 @@ document.querySelector('#finalButton').addEventListener('click', () => {
 
 function shuffle(){
   if (!running) {
+    shuffling = true;
     forward = true;
     running = true;
     disableSelectForm();
@@ -184,7 +191,11 @@ function shuffle(){
   }
 }
 
-document.querySelector('#shuffleButton').addEventListener('click', shuffle);
+document.querySelector('#shuffleButton').addEventListener('click',
+ () => {
+  shuffle();
+  selectForm.value = -1;
+});
 
 window.addEventListener('resize', () => {
     WIDTH = (PARENT_DIV.clientWidth - PADDING * 2) / size;
@@ -215,8 +226,10 @@ function getDuration(evt) {
 function changeTranstionDuration(evt) {
   const duration = getDuration(evt);
   document.documentElement.style.setProperty('--anim-length', duration)
+  speedOnScreen(duration);
   evt.preventDefault();
 }
+
 
 function selectAlgorithm(n){
   switch(n){
@@ -230,23 +243,16 @@ function selectAlgorithm(n){
     case 1:
       return() => {
         console.log("Sorting using Merge");
-        // swaps = bubbleSort(arr);
-        // forward = true;
-        // running = true;
-        // current = -1;
-        // swap();
-        // currentSort = undefined;
       }
     case 2:
       return() => {
         console.log("Sorting using QuickSort....");
-        // swapsQuickSort(arr, swaps);
-        // console.log(swaps)
-        // forward = true;
-        // running = true;
-        // current = -1;
-        // swap();
-        // currentSort = undefined;
+        //this should return a promise with the value of swaps 
+        sorts.quickSort(arr, 0, arr.length - 1, tempSwaps )
+        // swaps = tempSwaps;
+        // console.log(tempSwaps)
+        // totalOnScreen(swaps.length)
+        // reset();
       }
     case 3:
       return() => {
@@ -295,14 +301,26 @@ function enableSelectForm(){selectForm.disabled = false}
 
 const currentElement = document.querySelector('.currentStep .currentValue')
 function currentOnScreen(n){
-  currentElement.innerHTML = "";
-  currentElement.appendChild(document.createTextNode((n + 1)));
+  if(!shuffling){
+    currentElement.innerHTML = "";
+    currentElement.appendChild(document.createTextNode((n + 1)));
+  }
 }
 
 const totalElement = document.querySelector('.totalSteps .totalValue')
 function totalOnScreen(n){
-  totalElement.innerHTML = "";
-  totalElement.appendChild(document.createTextNode(n));
+  // if(!shuffling){
+    totalElement.innerHTML = "";
+    totalElement.appendChild(document.createTextNode(n));
+  // }
+}
+
+const speedElement = document.querySelector('.speed .speedValue')
+function speedOnScreen(n){
+  // if(!shuffling){
+    speedElement.innerHTML = "";
+    speedElement.appendChild(document.createTextNode(n));
+  // }
 }
 
 
