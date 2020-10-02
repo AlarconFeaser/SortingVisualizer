@@ -10,7 +10,7 @@ const shuffleArray = (arr) => {
         swaps.push([i, pos])
       }
     }
-    return {arr, swaps};
+    return swaps;
   }
 
   const generateArray = (size, max_height, padding = 5) => {
@@ -21,8 +21,8 @@ const shuffleArray = (arr) => {
     const chunk = max_height / size;
     for (let i = 0; i < size; ++i) 
       arr[i] = i * chunk + min_size;
-    return shuffleArray(arr).arr;
-      // return arr
+    // shuffleArray(arr)
+    return arr;
   };
 
 

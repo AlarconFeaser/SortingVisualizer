@@ -101,7 +101,7 @@ selectionSort : (arr) => {
 	}
 	return swaps;
 },
-quickSort : (arr, low, high, swaps) => {
+quickSort : (arr) => {
 	function qsort (arr, low, high, swaps) {
 		if (low < high) {
 		let pi = partition(arr, low, high, swaps);
@@ -130,6 +130,7 @@ quickSort : (arr, low, high, swaps) => {
 	  return (i + 1)
   }
   swaps = [];
-  qsort(arr, low, high, swaps)
+  qsort(arr, 0, arr.length - 1, swaps)
+  return swaps;
 }
 }
